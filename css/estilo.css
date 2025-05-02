@@ -1,135 +1,110 @@
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Corpo geral */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  background-color: #fdfdfd;
   color: #333;
 }
 
-/* Cabeçalho */
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
 header {
-  background-color: #1a1a1a;
-  color: white;
+  background-color: #2b2d42;
   padding: 20px 0;
-  text-align: center;
+  color: white;
 }
 
 header h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }
 
 nav a {
-  color: #ffffff;
-  margin: 0 15px;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Banner */
-.banner {
-  background: url('../imagens/banner.jpg') no-repeat center center/cover;
   color: white;
-  padding: 80px 20px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.banner {
+  background-color: #edf2f4;
   text-align: center;
+  padding: 60px 20px;
 }
 
 .banner h2 {
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 36px;
+  color: #2b2d42;
 }
 
 .banner p {
   font-size: 18px;
+  margin: 15px 0;
 }
 
-/* Serviços (ícones de destaque) */
-.servicos {
-  display: flex;
-  justify-content: space-around;
-  padding: 40px 20px;
-  background-color: #ffffff;
-  flex-wrap: wrap;
+.btn {
+  display: inline-block;
+  background-color: #ef233c;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #d90429;
+}
+
+.destaques {
+  padding: 40px 0;
+}
+
+.destaques h2 {
   text-align: center;
-}
-
-.servicos div {
-  width: 200px;
-  margin: 20px;
-}
-
-.servicos img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 10px;
-}
-
-/* Produtos em destaque */
-.produtos-destaque {
-  padding: 40px 20px;
-  background-color: #f2f2f2;
-  text-align: center;
-}
-
-.produtos-destaque h2 {
-  font-size: 28px;
   margin-bottom: 30px;
+  color: #2b2d42;
+}
+
+.produtos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
 }
 
 .produto {
-  display: inline-block;
-  width: 250px;
-  background-color: white;
-  padding: 15px;
-  margin: 15px;
+  background: white;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .produto img {
   width: 100%;
-  height: auto;
-  border-radius: 6px;
+  max-width: 200px;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
-.produto h3 {
-  margin: 10px 0;
-}
-
-.produto p {
-  color: #27ae60;
-  font-weight: bold;
-}
-
-.produto button {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.produto button:hover {
-  background-color: #1f8a4d;
-}
-
-/* Rodapé */
 footer {
-  background-color: #1a1a1a;
+  background-color: #2b2d42;
   color: white;
-  padding: 20px 0;
   text-align: center;
-  margin-top: 40px;
+  padding: 15px 0;
+  margin-top: 30px;
 }
