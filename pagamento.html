@@ -94,4 +94,20 @@
   </div>
 
 </body>
+  <script>
+  const form = document.querySelector("form");
+  const metodoPagamento = document.getElementById("metodo-pagamento");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault(); // impedir envio real
+
+    if (metodoPagamento.value === "referencia") {
+      window.location.href = "referencia.html";
+    } else {
+      alert("Pagamento confirmado com outro método (exemplo).");
+      // Aqui você pode redirecionar para outra página ou mostrar mensagem
+    }
+  });
+</script>
+
 </html>
