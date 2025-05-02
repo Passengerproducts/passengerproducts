@@ -2,51 +2,51 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
+  <title>Pagamento - Passenger Products</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Informações de Pagamento - Passenger Products</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f9f9f9;
       margin: 0;
       padding: 0;
     }
-    header {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
     .container {
-      width: 80%;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .form-group {
-      margin-bottom: 15px;
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
     }
     label {
+      margin-top: 15px;
       font-weight: bold;
     }
     input, select {
-      width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 5px;
       border: 1px solid #ccc;
     }
     button {
+      margin-top: 25px;
+      padding: 12px;
       background-color: #27ae60;
       color: white;
-      padding: 10px 20px;
-      font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      font-size: 16px;
     }
     button:hover {
       background-color: #219150;
@@ -54,60 +54,45 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>Informações de Pagamento</h1>
-  </header>
-
   <div class="container">
-    <h2>Preencha suas informações de pagamento</h2>
+    <h1>Pagamento</h1>
+    <form id="form-pagamento">
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" name="nome" required>
 
-    <form action="/processar-pagamento" method="POST">
-      <div class="form-group">
-        <label for="nome">Nome Completo</label>
-        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
-      </div>
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
 
-      <div class="form-group">
-        <label for="endereco">Endereço Completo</label>
-        <input type="text" id="endereco" name="endereco" required placeholder="Digite seu endereço completo">
-      </div>
+      <label for="telefone">Telefone:</label>
+      <input type="tel" id="telefone" name="telefone" required>
 
-      <div class="form-group">
-        <label for="telefone">Telefone</label>
-        <input type="tel" id="telefone" name="telefone" required placeholder="Digite seu telefone">
-      </div>
+      <label for="metodo-pagamento">Método de Pagamento:</label>
+      <select id="metodo-pagamento" name="metodo-pagamento" required>
+        <option value="">Selecione...</option>
+        <option value="multicaixa">Multicaixa Express</option>
+        <option value="referencia">Referência</option>
+      </select>
 
-      <div class="form-group">
-        <label for="metodo-pagamento">Método de Pagamento</label>
-        <select id="metodo-pagamento" name="metodo-pagamento" required>
-          <option value="multicaixa">Multicaixa</option>
-          <option value="referencia">Referência</option>
-          <option value="cartao">Cartão de Crédito</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <button type="submit">Confirmar Pagamento</button>
-      </div>
+      <button type="submit">Confirmar Pagamento</button>
     </form>
   </div>
 
-</body>
   <script>
-  const form = document.querySelector("form");
-  const metodoPagamento = document.getElementById("metodo-pagamento");
+    const form = document.getElementById("form-pagamento");
+    const metodoPagamento = document.getElementById("metodo-pagamento");
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault(); // impedir envio real
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
 
-    if (metodoPagamento.value === "referencia") {
-      window.location.href = "referencia.html";
-    } else {
-      alert("Pagamento confirmado com outro método (exemplo).");
-      // Aqui você pode redirecionar para outra página ou mostrar mensagem
-    }
-  });
-</script>
-
+      if (metodoPagamento.value === "referencia") {
+        window.location.href = "referencia.html";
+      } else if (metodoPagamento.value === "multicaixa") {
+        alert("Você selecionou Multicaixa Express. Um agente entrará em contacto para confirmar o pagamento.");
+        window.location.href = "index.html"; // ou página de confirmação
+      } else {
+        alert("Por favor, selecione um método de pagamento válido.");
+      }
+    });
+  </script>
+</body>
 </html>
