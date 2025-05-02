@@ -108,3 +108,76 @@ footer {
   padding: 15px 0;
   margin-top: 30px;
 }
+/* Estilos principais para desktop */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.produto {
+  background: white;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 8px;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+button {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #219150;
+}
+
+/* Media query para dispositivos móveis (telas pequenas) */
+@media (max-width: 768px) {
+  header {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  .produto {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+
+/* Media query para telas muito pequenas (smartphones em modo retrato) */
+@media (max-width: 480px) {
+  header {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .produto {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
