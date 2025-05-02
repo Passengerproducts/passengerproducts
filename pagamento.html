@@ -2,97 +2,70 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Pagamento - Passenger Products</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/estilo.css">
+  <title>Pagamento - Passenger Products PP</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
+
     .container {
+      background-color: white;
       max-width: 600px;
-      margin: 60px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     h1 {
-      text-align: center;
-      color: #333;
+      color: #2c3e50;
+      margin-bottom: 20px;
     }
-    form {
-      display: flex;
-      flex-direction: column;
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
     }
-    label {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select {
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 25px;
-      padding: 12px;
-      background-color: #27ae60;
+
+    .btn {
+      display: block;
+      width: 100%;
+      background-color: #006837;
       color: white;
+      padding: 15px;
+      margin: 10px 0;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      border-radius: 8px;
       font-size: 16px;
+      text-decoration: none;
+      cursor: pointer;
     }
-    button:hover {
-      background-color: #219150;
+
+    .btn:hover {
+      background-color: #004d2b;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pagamento</h1>
-    <form id="form-pagamento">
-      <label for="nome">Nome completo:</label>
-      <input type="text" id="nome" name="nome" required>
+    <h1>Escolha o método de pagamento</h1>
 
-      <label for="email">E-mail:</label>
-      <input type="email" id="email" name="email" required>
+    <a class="btn" href="referencia.html">Pagamento por Referência</a>
 
-      <label for="telefone">Telefone:</label>
-      <input type="tel" id="telefone" name="telefone" required>
+    <!-- Multicaixa Express com link real -->
+    <a class="btn" href="https://link-do-teu-gateway.com/pagar/PP12345" target="_blank">
+      Pagar com Multicaixa Express
+    </a>
 
-      <label for="metodo-pagamento">Método de Pagamento:</label>
-      <select id="metodo-pagamento" name="metodo-pagamento" required>
-        <option value="">Selecione...</option>
-        <option value="multicaixa">Multicaixa Express</option>
-        <option value="referencia">Referência</option>
-      </select>
-
-      <button type="submit">Confirmar Pagamento</button>
-    </form>
+    <p style="margin-top: 40px; font-size: 16px;">
+      Após o pagamento, o processo de entrega será iniciado.<br>
+      Agradecemos pela preferência!
+    </p>
   </div>
-
-  <script>
-    const form = document.getElementById("form-pagamento");
-    const metodoPagamento = document.getElementById("metodo-pagamento");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-
-      if (metodoPagamento.value === "referencia") {
-        window.location.href = "referencia.html";
-      } else if (metodoPagamento.value === "multicaixa") {
-        alert("Você selecionou Multicaixa Express. Um agente entrará em contacto para confirmar o pagamento.");
-        window.location.href = "index.html"; // ou página de confirmação
-      } else {
-        alert("Por favor, selecione um método de pagamento válido.");
-      }
-    });
-  </script>
 </body>
 </html>
