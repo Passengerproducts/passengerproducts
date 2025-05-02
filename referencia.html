@@ -2,60 +2,66 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Pagamento por Referência</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento por Referência</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f1f1f1;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f2f2;
       margin: 0;
       padding: 0;
-    }
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
       text-align: center;
+    }
+
+    .container {
+      background-color: white;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
     h1 {
       color: #2c3e50;
+      margin-bottom: 20px;
     }
+
     p {
-      font-size: 16px;
-      margin: 15px 0;
-      color: #333;
-    }
-    .referencia-box {
-      background-color: #eaeaea;
-      padding: 20px;
-      border-radius: 5px;
-      margin-top: 20px;
       font-size: 18px;
+      margin: 10px 0;
     }
-    .mensagem-final {
+
+    .btn {
+      display: inline-block;
+      background-color: #006837;
+      color: white;
+      padding: 12px 24px;
       margin-top: 30px;
-      color: #27ae60;
-      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #004d2b;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Pagamento por Referência</h1>
-    <p>Use os dados abaixo para concluir o pagamento:</p>
+    <h1>Dados para pagamento por referência</h1>
+    <p><strong>Entidade:</strong> 10116</p>
+    <p><strong>Referência:</strong> 931 888 360</p>
+    <p><strong>Valor:</strong> Inserir o valor conforme o produto</p>
 
-    <div class="referencia-box">
-      <p><strong>Entidade:</strong> 10116</p>
-      <p><strong>Referência:</strong> 954 546 731</p>
-    </div>
-
-    <p class="mensagem-final">
+    <p style="margin-top: 40px;">
       O processo de entrega será iniciado logo que o pagamento for concluído.<br>
       Atenciosamente, <strong>PASSENGER PRODUCTS - PP</strong>!
     </p>
+
+    <a class="btn" href="pagamento.html">← Voltar</a>
   </div>
 </body>
 </html>
