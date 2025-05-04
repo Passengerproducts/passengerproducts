@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dados do Cliente</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Preencher Dados de Cliente</title>
+  <link rel="stylesheet" href="css/estilo.css" />
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
     }
 
     .container {
-      max-width: 600px;
-      margin: 50px auto;
       background: white;
       padding: 30px;
+      max-width: 600px;
+      margin: auto;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -24,65 +24,84 @@
     h1 {
       text-align: center;
       color: #2c3e50;
-      margin-bottom: 30px;
     }
 
-    form label {
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
       display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      font-size: 16px;
+      color: #34495e;
     }
 
-    form input, form select {
+    input, select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 5px;
       border: 1px solid #ccc;
-      box-sizing: border-box;
     }
 
-    .btn {
-      display: block;
-      width: 100%;
-      background-color: #006837;
-      color: white;
-      border: none;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+    .btn-continuar {
+      text-align: center;
       margin-top: 30px;
     }
 
-    .btn:hover {
-      background-color: #004d2b;
+    .btn-continuar button {
+      background-color: #27ae60;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-continuar button:hover {
+      background-color: #219150;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Preencha os seus dados</h1>
-    <form action="pagamento.html" method="get">
-      <label for="provincia">Província</label>
-      <input type="text" id="provincia" name="provincia" required>
+    <h1>Preencha Seus Dados</h1>
+    
+    <form action="confirmacao_de_dados.html">
+      <div class="form-group">
+        <label for="provincia">Província:</label>
+        <input type="text" id="provincia" name="provincia" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="municipio">Município:</label>
+        <input type="text" id="municipio" name="municipio" required />
+      </div>
 
-      <label for="municipio">Município</label>
-      <input type="text" id="municipio" name="municipio" required>
+      <div class="form-group">
+        <label for="bairro">Bairro:</label>
+        <input type="text" id="bairro" name="bairro" required />
+      </div>
 
-      <label for="bairro">Bairro</label>
-      <input type="text" id="bairro" name="bairro" required>
+      <div class="form-group">
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco" name="endereco" required />
+      </div>
 
-      <label for="endereco">Endereço</label>
-      <input type="text" id="endereco" name="endereco" required>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+      </div>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
+      <div class="form-group">
+        <label for="telefone">Número Telefônico:</label>
+        <input type="text" id="telefone" name="telefone" required />
+      </div>
 
-      <label for="telefone">Número Telefónico</label>
-      <input type="tel" id="telefone" name="telefone" required>
-
-      <button type="submit" onclick="window.location.href='confirmacao_de_dados.html'">Confirmar Dados</button>
+      <div class="btn-continuar">
+        <button type="submit">Continuar para Confirmação</button>
+      </div>
     </form>
   </div>
 </body>
