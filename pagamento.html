@@ -3,69 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagamento - Passenger Products PP</title>
+  <title>Pagamento</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-      text-align: center;
+      padding: 20px;
     }
 
     .container {
-      background-color: white;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 40px;
+      max-width: 700px;
+      background: #fff;
+      padding: 30px;
+      margin: auto;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     h1 {
-      color: #2c3e50;
-      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
     }
 
-    p {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      background-color: #006837;
-      color: white;
+    .dados {
+      margin-top: 20px;
       padding: 15px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      text-decoration: none;
-      cursor: pointer;
+      border-left: 5px solid #006837;
+      background-color: #f9f9f9;
     }
 
-    .btn:hover {
-      background-color: #004d2b;
+    .dados p {
+      margin: 8px 0;
+    }
+
+    .pagamento {
+      margin-top: 30px;
+    }
+
+    .opcao {
+      padding: 15px;
+      margin-bottom: 20px;
+      background-color: #eafbe7;
+      border-left: 5px solid #006837;
+    }
+
+    .mensagem {
+      margin-top: 25px;
+      background-color: #d7f9d0;
+      padding: 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      color: #004d2b;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Escolha o método de pagamento</h1>
+    <h1>Confirmação e Pagamento</h1>
 
-    <a class="btn" href="referencia.html">Pagamento por Referência</a>
+    <div class="dados">
+      <h3>Seus Dados</h3>
+      <p><strong>Província:</strong> <span id="provincia"></span></p>
+      <p><strong>Município:</strong> <span id="municipio"></span></p>
+      <p><strong>Bairro:</strong> <span id="bairro"></span></p>
+      <p><strong>Endereço:</strong> <span id="endereco"></span></p>
+      <p><strong>Email:</strong> <span id="email"></span></p>
+      <p><strong>Telefone:</strong> <span id="telefone"></span></p>
+    </div>
 
-    <!-- Multicaixa Express com link real -->
-    <a class="btn" href="https://link-do-teu-gateway.com/pagar/PP12345" target="_blank">
-      Pagar com Multicaixa Express
+    <div class="pagamento">
+      <h3>Pagamento por Referência</h3>
+      <div class="opcao">
+        <p><strong>Referência:</strong> 931 888 360</p>
+        <p><strong>Entidade:</strong> 10116</p>
+      </div>
 
-      
-    </a>
-    <a class="btn" href="index.html">← Voltar</a>
-
-    </p>
+      <div class="mensagem">
+        O processo de entrega será iniciado logo que o pagamento for concluído.<br>
+        Atenciosamente, <strong>PASSENGER PRODUCTS - PP!</strong>
+      </div>
+    </div>
   </div>
+
+  <script>
+    // Captura os dados da URL e insere na página
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("provincia").textContent = params.get("provincia");
+    document.getElementById("municipio").textContent = params.get("municipio");
+    document.getElementById("bairro").textContent = params.get("bairro");
+    document.getElementById("endereco").textContent = params.get("endereco");
+    document.getElementById("email").textContent = params.get("email");
+    document.getElementById("telefone").textContent = params.get("telefone");
+  </script>
 </body>
 </html>
