@@ -5,8 +5,8 @@
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
+      margin: 0;
       background-color: #f4f4f4;
     }header {
   background-color: #27ae60;
@@ -17,7 +17,7 @@
 
 header h1 {
   margin: 0;
-  font-size: 32px;
+  font-size: 28px;
 }
 
 nav {
@@ -35,51 +35,49 @@ nav a {
   font-weight: bold;
 }
 
-.busca-categoria {
+.filtro-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
 }
 
-.busca-categoria select,
-.busca-categoria input[type="text"] {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 280px;
+.filtro-container select, .filtro-container input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.filtro-container input {
+  flex: 1;
+  margin-left: 12px;
+  background-image: url('img/lupa.png');
+  background-position: 98% center;
+  background-repeat: no-repeat;
+  background-size: 20px;
 }
 
 .produtos {
-  padding: 30px 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: auto;
+  padding: 20px;
 }
 
 .produto {
   background: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  padding: 16px;
   text-align: center;
-  padding: 14px;
-  transition: transform 0.2s;
-}
-
-.produto:hover {
-  transform: translateY(-4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .produto img {
-  max-width: 100%;
-  height: 160px;
+  width: 100%;
+  height: 150px;
   object-fit: contain;
 }
 
@@ -89,25 +87,8 @@ nav a {
 }
 
 .produto p {
-  color: #27ae60;
   font-weight: bold;
-}
-
-.produto button {
-  background-color: #27ae60;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  margin-top: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-footer {
-  background-color: #2c3e50;
-  color: white;
-  text-align: center;
-  padding: 24px 16px;
+  color: #27ae60;
 }
 
   </style>
@@ -119,43 +100,66 @@ footer {
     <a href="produtos.html">Produtos</a>
     <a href="sobre.html">Sobre</a>
     <a href="contato.html">Contato</a>
-    <a href="dados_cliente.html">Encomendar</a>
-  </nav>  <div class="busca-categoria">
-    <select name="categoria" id="categoria">
-      <option value="">Todas as Categorias</option>
-      <option value="durags">Durags</option>
-      <option value="escovas">Escovas</option>
-      <option value="pomadas">Pomadas</option>
+  </nav>  <div class="filtro-container">
+    <select id="categoria">
+      <option value="todos">Todas as Categorias</option>
+      <option value="waves">Waves</option>
+      <option value="acessorios">Acessórios</option>
       <option value="colares">Colares</option>
-      <option value="brincos">Brincos</option>
-      <option value="relógios">Relógios</option>
-      <option value="toucas">Toucas</option>
-      <option value="perfumes">Perfumes</option>
+      <option value="beleza">Beleza</option>
     </select>
-    <input type="text" placeholder="Procurar produto..." id="pesquisa">
-  </div>  <div class="produtos">
-    <!-- Exemplo de repetição de mais de 50 produtos -->
-    <!-- Apenas 12 para visualização -->
-    <div class="produto"><img src="img/produto1.jpg" alt="Produto"><h3>Durag Azul</h3><p>3.500 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto2.jpg" alt="Produto"><h3>Escova Wave Pro</h3><p>5.000 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto3.jpg" alt="Produto"><h3>Pomada Capilar</h3><p>4.200 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto4.jpg" alt="Produto"><h3>Colar Estilizado</h3><p>2.800 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto5.jpg" alt="Produto"><h3>Touca Waves</h3><p>3.000 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto6.jpg" alt="Produto"><h3>Relógio Slim</h3><p>6.900 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto7.jpg" alt="Produto"><h3>Brincos Prateados</h3><p>2.000 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto8.jpg" alt="Produto"><h3>Pulseira Elegante</h3><p>2.500 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto9.jpg" alt="Produto"><h3>Óleo para Barba</h3><p>4.000 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto10.jpg" alt="Produto"><h3>Relógio de Couro</h3><p>7.500 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto11.jpg" alt="Produto"><h3>Perfume Urban</h3><p>8.000 Kz</p><button>Ver mais</button></div>
-    <div class="produto"><img src="img/produto12.jpg" alt="Produto"><h3>Escova Max</h3><p>5.500 Kz</p><button>Ver mais</button></div>
-    <!-- ... repita até mais de 50 produtos -->
-  </div>  <footer>
-    <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
-    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/passengerproductspp" target="_blank">Instagram</a> |
-      <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
-      <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
-    </div>
-  </footer>
-</body></html>
+    <input type="text" id="pesquisa" placeholder="Pesquisar produto...">
+  </div>  <div class="produtos" id="lista-produtos">
+    <!-- Produtos serão inseridos por JS -->
+  </div>  <script>
+    const produtos = [
+      { nome: 'Durag Azul', preco: '3.500 Kz', img: 'img/produto1.jpg', categoria: 'waves' },
+      { nome: 'Escova Wave Pro', preco: '5.000 Kz', img: 'img/produto2.jpg', categoria: 'waves' },
+      { nome: 'Pomada Capilar', preco: '4.200 Kz', img: 'img/produto3.jpg', categoria: 'waves' },
+      { nome: 'Colar Estilizado', preco: '2.800 Kz', img: 'img/produto4.jpg', categoria: 'colares' },
+      { nome: 'Touca Waves', preco: '3.000 Kz', img: 'img/produto5.jpg', categoria: 'waves' },
+      { nome: 'Relógio Slim', preco: '6.900 Kz', img: 'img/produto6.jpg', categoria: 'acessorios' },
+      { nome: 'Brincos Prateados', preco: '2.000 Kz', img: 'img/produto7.jpg', categoria: 'acessorios' },
+      { nome: 'Perfume Urban', preco: '8.000 Kz', img: 'img/produto17.jpg', categoria: 'beleza' },
+      { nome: 'Brincos Cristal', preco: '4.500 Kz', img: 'img/produto20.jpg', categoria: 'acessorios' },
+      { nome: 'Escova Max', preco: '5.500 Kz', img: 'img/produto21.jpg', categoria: 'waves' },
+      // Adicione mais produtos conforme necessário
+    ];
+
+    const lista = document.getElementById('lista-produtos');
+    const categoriaSelect = document.getElementById('categoria');
+    const campoPesquisa = document.getElementById('pesquisa');
+
+    function exibirProdutos(filtrados) {
+      lista.innerHTML = '';
+      if (filtrados.length === 0) {
+        lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
+        return;
+      }
+      filtrados.forEach(p => {
+        lista.innerHTML += `
+          <div class="produto">
+            <img src="${p.img}" alt="${p.nome}">
+            <h3>${p.nome}</h3>
+            <p>${p.preco}</p>
+          </div>
+        `;
+      });
+    }
+
+    function filtrarProdutos() {
+      const texto = campoPesquisa.value.toLowerCase();
+      const cat = categoriaSelect.value;
+      const resultado = produtos.filter(p => {
+        const nomeOK = p.nome.toLowerCase().includes(texto);
+        const catOK = cat === 'todos' || p.categoria === cat;
+        return nomeOK && catOK;
+      });
+      exibirProdutos(resultado);
+    }
+
+    categoriaSelect.addEventListener('change', filtrarProdutos);
+    campoPesquisa.addEventListener('input', filtrarProdutos);
+
+    window.onload = () => filtrarProdutos();
+  </script></body></html>
