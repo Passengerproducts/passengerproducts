@@ -17,7 +17,29 @@
       background-color: #27ae60;
       color: white;
       padding: 20px;
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    .cart-status {
+      background: white;
+      color: #27ae60;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: bold;
     }
 
     .container {
@@ -98,13 +120,22 @@
 
 <body>
   <header>
-    <h1>Carrinho de Compras</h1>
+    <div class="logo">
+      <div>PASSENGER PRODUCTS - PP</div>
+      <div style="font-size: 12px;">Beleza, Cuidado e Estilo ao seu alcance</div>
+    </div>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="contato.html">Contato</a>
+      <a href="carrinho.html" class="cart-status">🛍️<span id="contador-carrinho">0</span></a>
+    </nav>
   </header>
 
   <div class="container">
     <h2>Seus Produtos</h2>
     <div id="carrinho-itens">
-      <!-- Produtos adicionados aparecerão aqui dinamicamente -->
       <p class="empty-message">O seu carrinho está vazio.</p>
     </div>
 
@@ -116,6 +147,7 @@
     const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
     const carrinhoItens = document.getElementById('carrinho-itens');
     const precoTotal = document.getElementById('preco-total');
+    const contadorCarrinho = document.getElementById('contador-carrinho');
 
     function atualizarCarrinho() {
       carrinhoItens.innerHTML = '';
@@ -124,6 +156,7 @@
       if (carrinho.length === 0) {
         carrinhoItens.innerHTML = '<p class="empty-message">O seu carrinho está vazio.</p>';
         precoTotal.innerText = 'Total: 0 Kz';
+        contadorCarrinho.innerText = '0';
         return;
       }
 
@@ -144,6 +177,7 @@
       });
 
       precoTotal.innerText = `Total: ${total.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' })}`;
+      contadorCarrinho.innerText = carrinho.length;
     }
 
     function removerItem(index) {
