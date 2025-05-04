@@ -7,41 +7,126 @@
   <link rel="stylesheet" href="css/estilo.css" />
   <script>
     function salvarDados() {
-      // Salvando os dados no localStorage
-      localStorage.setItem('provincia', document.getElementById('provincia').value);
-      localStorage.setItem('municipio', document.getElementById('municipio').value);
-      localStorage.setItem('bairro', document.getElementById('bairro').value);
-      localStorage.setItem('endereco', document.getElementById('endereco').value);
-      localStorage.setItem('email', document.getElementById('email').value);
-      localStorage.setItem('telefone', document.getElementById('telefone').value);
+      // Validar os campos
+      let provincia = document.getElementById('provincia').value;
+      let municipio = document.getElementById('municipio').value;
+      let bairro = document.getElementById('bairro').value;
+      let endereco = document.getElementById('endereco').value;
+      let email = document.getElementById('email').value;
+      let telefone = document.getElementById('telefone').value;
+
+      if (provincia && municipio && bairro && endereco && email && telefone) {
+        // Salvando os dados no localStorage
+        localStorage.setItem('provincia', provincia);
+        localStorage.setItem('municipio', municipio);
+        localStorage.setItem('bairro', bairro);
+        localStorage.setItem('endereco', endereco);
+        localStorage.setItem('email', email);
+        localStorage.setItem('telefone', telefone);
+
+        // Redirecionar para a página de confirmação de dados
+        window.location.href = 'confirmacao_de_dados.html';
+      } else {
+        alert("Por favor, preencha todos os campos!");
+      }
     }
   </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 16px;
+      color: #34495e;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      border-color: #27ae60;
+      outline: none;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .form-footer {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Preencha seus dados</h1>
 
-    <form onsubmit="salvarDados()">
+    <form onsubmit="event.preventDefault(); salvarDados();">
       <label for="provincia">Província:</label>
-      <input type="text" id="provincia" required />
+      <input type="text" id="provincia" placeholder="Ex: Luanda" required />
 
       <label for="municipio">Município:</label>
-      <input type="text" id="municipio" required />
+      <input type="text" id="municipio" placeholder="Ex: Ingombota" required />
 
       <label for="bairro">Bairro:</label>
-      <input type="text" id="bairro" required />
+      <input type="text" id="bairro" placeholder="Ex: Ilha do Cabo" required />
 
       <label for="endereco">Endereço:</label>
-      <input type="text" id="endereco" required />
+      <input type="text" id="endereco" placeholder="Ex: Rua X, nº 45" required />
 
       <label for="email">Email:</label>
-      <input type="email" id="email" required />
+      <input type="email" id="email" placeholder="Ex: exemplo@dominio.com" required />
 
       <label for="telefone">Número Telefônico:</label>
-      <input type="tel" id="telefone" required />
+      <input type="tel" id="telefone" placeholder="Ex: +244 999 000 000" required />
 
-      <button type="submit">Continuar</button>
+      <div class="form-footer">
+        <button type="submit">Continuar</button>
+      </div>
     </form>
   </div>
+
 </body>
 </html>
