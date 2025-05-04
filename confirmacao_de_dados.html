@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Confirmação de Dados</title>
   <link rel="stylesheet" href="css/estilo.css" />
   <style>
@@ -68,37 +68,48 @@
 
     <div class="info">
       <label for="provincia">Província:</label>
-      <p id="provincia">[Nome da Província]</p>
+      <p id="provincia"></p>
     </div>
     
     <div class="info">
       <label for="municipio">Município:</label>
-      <p id="municipio">[Nome do Município]</p>
+      <p id="municipio"></p>
     </div>
 
     <div class="info">
       <label for="bairro">Bairro:</label>
-      <p id="bairro">[Nome do Bairro]</p>
+      <p id="bairro"></p>
     </div>
 
     <div class="info">
       <label for="endereco">Endereço:</label>
-      <p id="endereco">[Nome do Endereço]</p>
+      <p id="endereco"></p>
     </div>
 
     <div class="info">
       <label for="email">Email:</label>
-      <p id="email">[Email do Cliente]</p>
+      <p id="email"></p>
     </div>
 
     <div class="info">
       <label for="telefone">Número Telefônico:</label>
-      <p id="telefone">[Número do Telefone]</p>
+      <p id="telefone"></p>
     </div>
 
     <div class="btn-continuar">
-      <button onclick="window.location.href='metodo_pagamento.html'">Continuar para o Pagamento</button>
+      <button onclick="window.location.href='pagamento.html'">Continuar para o Pagamento</button>
     </div>
   </div>
+
+  <script>
+    window.onload = function() {
+      document.getElementById('provincia').innerText = localStorage.getItem('provincia');
+      document.getElementById('municipio').innerText = localStorage.getItem('municipio');
+      document.getElementById('bairro').innerText = localStorage.getItem('bairro');
+      document.getElementById('endereco').innerText = localStorage.getItem('endereco');
+      document.getElementById('email').innerText = localStorage.getItem('email');
+      document.getElementById('telefone').innerText = localStorage.getItem('telefone');
+    }
+  </script>
 </body>
 </html>
