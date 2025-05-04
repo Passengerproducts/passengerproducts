@@ -1,18 +1,23 @@
 <!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contato - PASSENGER PRODUCTS - PP</title>
+  <title>Sobre - PASSENGER PRODUCTS - PP</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
     }header {
   background-color: #27ae60;
   color: white;
   padding: 30px 20px;
   text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
 }
 
 nav {
@@ -29,52 +34,31 @@ nav a {
   font-weight: bold;
 }
 
-.container {
-  max-width: 800px;
-  margin: 40px auto;
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.section {
+  padding: 50px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
-h2 {
+.section h2 {
+  border-left: 5px solid #27ae60;
+  padding-left: 12px;
+  margin-bottom: 24px;
   color: #2c3e50;
-  margin-bottom: 20px;
+  font-size: 24px;
 }
 
-form {
-  display: grid;
-  gap: 16px;
+.section p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
 }
 
-label {
-  font-weight: bold;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  background-color: #27ae60;
+footer {
+  background-color: #2c3e50;
   color: white;
-  border: none;
-  padding: 12px;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.info {
-  margin-top: 30px;
-}
-
-.info p {
-  margin: 6px 0;
+  text-align: center;
+  padding: 24px 16px;
 }
 
 .social-links {
@@ -83,15 +67,8 @@ button {
 
 .social-links a {
   margin: 0 10px;
-  color: #27ae60;
-  text-decoration: none;
-}
-
-footer {
-  background-color: #2c3e50;
   color: white;
-  text-align: center;
-  padding: 24px 16px;
+  text-decoration: none;
 }
 
   </style>
@@ -105,32 +82,19 @@ footer {
     <a href="sobre.html">Sobre</a>
     <a href="contato.html">Contato</a>
     <a href="dados_cliente.html">Encomendar</a>
-  </nav>  <div class="container">
-    <h2>Fale Conosco</h2>
-    <form>
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" required><label for="email">Email</label>
-  <input type="email" id="email" name="email" required>
+  </nav>  <div class="section">
+    <h2>Quem Somos</h2>
+    <p>A PASSENGER PRODUCTS - PP é uma empresa moderna e nacional especializada na importação e comercialização de acessórios para mulheres e homens. Oferecemos uma ampla gama de produtos como brincos, relógios, pomadas, escovas, durags, toucas para waves e itens de cuidados para a pele e lábios ressecados.</p><p>Nosso foco é fornecer produtos estilosos, acessíveis e de qualidade que elevam o visual e a autoestima dos nossos clientes. Atuamos tanto online quanto em loja física, com o compromisso de proporcionar beleza, cuidado e estilo com praticidade e confiança.</p>
 
-  <label for="mensagem">Mensagem</label>
-  <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
-
-  <button type="submit">Enviar</button>
-</form>
-
-<div class="info">
-  <h2>Informações de Contato</h2>
-  <p><strong>Telefone:</strong> 954 546 731</p>
-  <p><strong>Email:</strong> passenger.products.apoio@gmail.com</p>
-  <p><strong>Redes Sociais:</strong></p>
-  <div class="social-links">
-    <a href="https://www.instagram.com/passengerproductspp?igsh=MTBoMjJ4emJuOWRwZw==" target="_blank">Instagram</a> |
-    <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
-    <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
-  </div>
-</div>
+<p>Acreditamos que todos merecem se expressar com liberdade e elegância. Por isso, a PASSENGER PRODUCTS - PP está aqui para garantir que você tenha o melhor em acessórios e cosméticos, sempre com um atendimento personalizado.</p>
 
   </div>  <footer>
     <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
+    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/passengerproductspp" target="_blank">Instagram</a> |
+      <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
+      <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
+    </div>
   </footer>
 </body></html>
