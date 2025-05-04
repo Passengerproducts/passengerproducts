@@ -1,14 +1,13 @@
 <!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre - PASSENGER PRODUCTS - PP</title>
+  <title>Contato - PASSENGER PRODUCTS - PP</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #2c3e50;
+      background-color: #f9f9f9;
     }header {
   background-color: #27ae60;
   color: white;
@@ -16,15 +15,9 @@
   text-align: center;
 }
 
-header h1 {
-  margin: 0;
-  font-size: 32px;
-}
-
 nav {
   background-color: #2c3e50;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
   padding: 14px 0;
@@ -36,21 +29,62 @@ nav a {
   font-weight: bold;
 }
 
-.conteudo {
-  max-width: 900px;
+.container {
+  max-width: 800px;
   margin: 40px auto;
-  padding: 0 20px;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.conteudo h2 {
+h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.info {
+  margin-top: 30px;
+}
+
+.info p {
+  margin: 6px 0;
+}
+
+.social-links {
+  margin-top: 12px;
+}
+
+.social-links a {
+  margin: 0 10px;
   color: #27ae60;
-  margin-bottom: 20px;
-}
-
-.conteudo p {
-  line-height: 1.7;
-  font-size: 16px;
-  margin-bottom: 20px;
+  text-decoration: none;
 }
 
 footer {
@@ -60,47 +94,43 @@ footer {
   padding: 24px 16px;
 }
 
-.social-links {
-  margin-top: 12px;
-}
-
-.social-links a {
-  margin: 0 10px;
-  color: white;
-  text-decoration: none;
-}
-
   </style>
 </head><body>
   <header>
-    <h1>Sobre a PASSENGER PRODUCTS - PP</h1>
+    <h1>PASSENGER PRODUCTS - PP</h1>
+    <p>Beleza, Cuidado e Estilo ao seu alcance</p>
   </header>  <nav>
     <a href="index.html">Início</a>
     <a href="produtos.html">Produtos</a>
     <a href="sobre.html">Sobre</a>
     <a href="contato.html">Contato</a>
     <a href="dados_cliente.html">Encomendar</a>
-  </nav>  <div class="conteudo">
-    <h2>Quem somos</h2>
-    <p>A PASSENGER PRODUCTS - PP é uma empresa moderna e nacional, especializada na importação e comercialização de acessórios e produtos de beleza para homens e mulheres. Atendemos tanto online quanto em loja física, sempre com o compromisso de oferecer estilo, cuidado e qualidade a preços acessíveis.</p><h2>Nossa missão</h2>
-<p>Proporcionar aos nossos clientes produtos atuais, acessíveis e confiáveis, que reforcem sua identidade, autoestima e bem-estar. Nosso compromisso é com a beleza, o cuidado e o estilo.</p>
+  </nav>  <div class="container">
+    <h2>Fale Conosco</h2>
+    <form>
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" required><label for="email">Email</label>
+  <input type="email" id="email" name="email" required>
 
-<h2>Nossos produtos</h2>
-<p>Trabalhamos com uma variedade de produtos como brincos, colares, relógios, durags, pomadas para waves, toucas, escovas especiais e cosméticos para cuidados com a pele e os lábios.</p>
+  <label for="mensagem">Mensagem</label>
+  <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
 
-<h2>Visão</h2>
-<p>Ser referência nacional no comércio de acessórios e produtos de cuidado pessoal, expandindo cada vez mais nossa atuação no ambiente digital.</p>
+  <button type="submit">Enviar</button>
+</form>
 
-<h2>Valores</h2>
-<p>Qualidade, acessibilidade, confiança, respeito ao cliente e inovação constante.</p>
+<div class="info">
+  <h2>Informações de Contato</h2>
+  <p><strong>Telefone:</strong> 954 546 731</p>
+  <p><strong>Email:</strong> passenger.products.apoio@gmail.com</p>
+  <p><strong>Redes Sociais:</strong></p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/passengerproductspp?igsh=MTBoMjJ4emJuOWRwZw==" target="_blank">Instagram</a> |
+    <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
+    <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
+  </div>
+</div>
 
   </div>  <footer>
     <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
-    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
-    <div class="social-links">
-      <a href="https://www.instagram.com/passengerproductspp" target="_blank">Instagram</a> |
-      <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
-      <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
-    </div>
   </footer>
 </body></html>
