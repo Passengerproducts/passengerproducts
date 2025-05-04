@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Encomenda</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+    }
+    button {
+      background: #009688;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Finalizar Encomenda</h2>
+
+  <form action="https://formsubmit.co/passenger.products.apoio@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="🛒 Nova Encomenda de Cliente" />
+    <input type="hidden" name="Província" id="campoProvincia" />
+    <input type="hidden" name="Município" id="campoMunicipio" />
+    <input type="hidden" name="Bairro" id="campoBairro" />
+    <input type="hidden" name="Endereço" id="campoEndereco" />
+    <input type="hidden" name="Email" id="campoEmail" />
+    <input type="hidden" name="Telefone" id="campoTelefone" />
+    <input type="hidden" name="_captcha" value="false">
+
+    <p>Estamos quase lá! Clique abaixo para finalizar sua encomenda.</p>
+
+    <button type="submit">Finalizar Encomenda</button>
+  </form>
+
+  <script>
+    document.getElementById("campoProvincia").value = localStorage.getItem("provincia");
+    document.getElementById("campoMunicipio").value = localStorage.getItem("municipio");
+    document.getElementById("campoBairro").value = localStorage.getItem("bairro");
+    document.getElementById("campoEndereco").value = localStorage.getItem("endereco");
+    document.getElementById("campoEmail").value = localStorage.getItem("email");
+    document.getElementById("campoTelefone").value = localStorage.getItem("telefone");
+  </script>
+
+</body>
+</html>
