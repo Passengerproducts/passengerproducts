@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Escolher Método de Pagamento</title>
+  <link rel="stylesheet" href="css/estilo.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .opcoes-pagamento {
+      margin-top: 20px;
+    }
+
+    .opcao {
+      background-color: #eaf2f8;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .opcao:hover {
+      background-color: #d5e5f7;
+    }
+
+    .opcao p {
+      font-size: 18px;
+      color: #34495e;
+    }
+
+    .btn-confirmar {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn-confirmar a {
+      text-decoration: none;
+      background-color: #27ae60;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .btn-confirmar a:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Escolher Método de Pagamento</h1>
+
+    <div class="opcoes-pagamento">
+      <div class="opcao" onclick="window.location.href='multicaixa.html'">
+        <p><strong>Pagamento por Multicaixa Express</strong></p>
+        <p>Escolha esta opção para pagar via Multicaixa Express.</p>
+      </div>
+      <div class="opcao" onclick="window.location.href='referencia.html'">
+        <p><strong>Pagamento por Referência</strong></p>
+        <p>Escolha esta opção para pagar via Referência Multicaixa.</p>
+      </div>
+    </div>
+
+    <div class="btn-confirmar">
+      <a href="metodo_pagamento.html">Voltar</a>
+    </div>
+  </div>
+</body>
+</html>
