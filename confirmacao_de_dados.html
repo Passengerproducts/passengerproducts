@@ -26,48 +26,78 @@
       color: #2c3e50;
     }
 
-    .dados-cliente {
-      margin-top: 20px;
+    .info {
+      margin-bottom: 20px;
     }
 
-    .dados-cliente p {
+    .info label {
+      display: block;
       font-size: 16px;
-      margin: 10px 0;
+      color: #34495e;
+    }
+
+    .info p {
+      font-size: 16px;
+      color: #2c3e50;
+      margin-top: 5px;
     }
 
     .btn-continuar {
-      margin-top: 30px;
       text-align: center;
+      margin-top: 30px;
     }
 
-    .btn-continuar a {
-      text-decoration: none;
+    .btn-continuar button {
       background-color: #27ae60;
       color: white;
       padding: 12px 25px;
       border-radius: 5px;
       font-size: 16px;
+      border: none;
+      cursor: pointer;
     }
 
-    .btn-continuar a:hover {
+    .btn-continuar button:hover {
       background-color: #219150;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Confirmação dos Dados</h1>
-    <div class="dados-cliente">
-      <p><strong>Província:</strong> Luanda</p>
-      <p><strong>Município:</strong> Talatona</p>
-      <p><strong>Bairro:</strong> Morro Bento</p>
-      <p><strong>Endereço:</strong> Rua 123, Casa 45</p>
-      <p><strong>Email:</strong> exemplo@email.com</p>
-      <p><strong>Telefone:</strong> 923 000 000</p>
+    <h1>Confirmação de Dados</h1>
+
+    <div class="info">
+      <label for="provincia">Província:</label>
+      <p id="provincia">[Nome da Província]</p>
+    </div>
+    
+    <div class="info">
+      <label for="municipio">Município:</label>
+      <p id="municipio">[Nome do Município]</p>
+    </div>
+
+    <div class="info">
+      <label for="bairro">Bairro:</label>
+      <p id="bairro">[Nome do Bairro]</p>
+    </div>
+
+    <div class="info">
+      <label for="endereco">Endereço:</label>
+      <p id="endereco">[Nome do Endereço]</p>
+    </div>
+
+    <div class="info">
+      <label for="email">Email:</label>
+      <p id="email">[Email do Cliente]</p>
+    </div>
+
+    <div class="info">
+      <label for="telefone">Número Telefônico:</label>
+      <p id="telefone">[Número do Telefone]</p>
     </div>
 
     <div class="btn-continuar">
-      <a href="metodo_pagamento.html">Continuar para o Pagamento</a>
+      <button onclick="window.location.href='metodo_pagamento.html'">Continuar para o Pagamento</button>
     </div>
   </div>
 </body>
