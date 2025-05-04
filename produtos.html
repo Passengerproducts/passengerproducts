@@ -1,39 +1,161 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+<!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
-  <title>Produtos - PP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - PASSENGER PRODUCTS</title>
   <link rel="stylesheet" href="css/estilo.css">
-</head>
-<body>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }header {
+  background-color: #27ae60;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+nav {
+  background-color: #2c3e50;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.busca-categoria {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.busca-categoria select,
+.busca-categoria input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 280px;
+}
+
+.produtos {
+  padding: 30px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.produto {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  text-align: center;
+  padding: 14px;
+  transition: transform 0.2s;
+}
+
+.produto:hover {
+  transform: translateY(-4px);
+}
+
+.produto img {
+  max-width: 100%;
+  height: 160px;
+  object-fit: contain;
+}
+
+.produto h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+}
+
+.produto p {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.produto button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin-top: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+footer {
+  background-color: #2c3e50;
+  color: white;
+  text-align: center;
+  padding: 24px 16px;
+}
+
+  </style>
+</head><body>
   <header>
-    <h1>PASSENGER PRODUCTS - PP</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="produtos.html">Produtos</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="contato.html">Contato</a>
-    </nav>
-  </header>
-
-  <section class="produtos">
-    <div class="produto">
-      <img src="imagens/wave-kit.jpg" alt="Kit para Waves">
-      <h3>Kit para Waves</h3>
-      <p>Preço: 4.500 Kz</p>
-      <a href="#"><button>Comprar</button></a>
+    <h1>Produtos - PASSENGER PRODUCTS</h1>
+  </header>  <nav>
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+    <a href="dados_cliente.html">Encomendar</a>
+  </nav>  <div class="busca-categoria">
+    <select name="categoria" id="categoria">
+      <option value="">Todas as Categorias</option>
+      <option value="durags">Durags</option>
+      <option value="escovas">Escovas</option>
+      <option value="pomadas">Pomadas</option>
+      <option value="colares">Colares</option>
+      <option value="brincos">Brincos</option>
+      <option value="relógios">Relógios</option>
+      <option value="toucas">Toucas</option>
+      <option value="perfumes">Perfumes</option>
+    </select>
+    <input type="text" placeholder="Procurar produto..." id="pesquisa">
+  </div>  <div class="produtos">
+    <!-- Exemplo de repetição de mais de 50 produtos -->
+    <!-- Apenas 12 para visualização -->
+    <div class="produto"><img src="img/produto1.jpg" alt="Produto"><h3>Durag Azul</h3><p>3.500 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto2.jpg" alt="Produto"><h3>Escova Wave Pro</h3><p>5.000 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto3.jpg" alt="Produto"><h3>Pomada Capilar</h3><p>4.200 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto4.jpg" alt="Produto"><h3>Colar Estilizado</h3><p>2.800 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto5.jpg" alt="Produto"><h3>Touca Waves</h3><p>3.000 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto6.jpg" alt="Produto"><h3>Relógio Slim</h3><p>6.900 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto7.jpg" alt="Produto"><h3>Brincos Prateados</h3><p>2.000 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto8.jpg" alt="Produto"><h3>Pulseira Elegante</h3><p>2.500 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto9.jpg" alt="Produto"><h3>Óleo para Barba</h3><p>4.000 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto10.jpg" alt="Produto"><h3>Relógio de Couro</h3><p>7.500 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto11.jpg" alt="Produto"><h3>Perfume Urban</h3><p>8.000 Kz</p><button>Ver mais</button></div>
+    <div class="produto"><img src="img/produto12.jpg" alt="Produto"><h3>Escova Max</h3><p>5.500 Kz</p><button>Ver mais</button></div>
+    <!-- ... repita até mais de 50 produtos -->
+  </div>  <footer>
+    <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
+    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
+    <div class="social-links">
+      <a href="https://www.instagram.com/passengerproductspp" target="_blank">Instagram</a> |
+      <a href="https://www.facebook.com/share/1BqMzLducw/" target="_blank">Facebook</a> |
+      <a href="https://wa.me/244954546731" target="_blank">WhatsApp</a>
     </div>
-
-    <div class="produto">
-      <img src="imagens/colar.jpg" alt="Colar Estiloso">
-      <h3>Colar Estiloso</h3>
-      <p>Preço: 2.000 Kz</p>
-      <a href="#"><button>Comprar</button></a>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 PASSENGER PRODUCTS</p>
   </footer>
-</body>
-</html>
+</body></html>
