@@ -1,106 +1,132 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+<!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pagamento por Referência</title>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    window.onload = function () {
-      emailjs.init('onayxrP4KwhBEOKEr'); // Substitua com sua public key
-
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const dadosCliente = JSON.parse(localStorage.getItem('dadosCliente')) || {};
-
-      let total = 0;
-      let detalhes = '';
-
-      carrinho.forEach((item, i) => {
-        total += parseFloat(item.preco.replace('.', '').replace(',', '.'));
-        detalhes += `${i + 1}. ${item.nome} - ${item.preco} Kz\n`;
-      });
-
-      const params = {
-        cliente_nome: dadosCliente.nome || 'N/A',
-        cliente_email: dadosCliente.email || 'N/A',
-        cliente_telefone: dadosCliente.telefone || 'N/A',
-        cliente_endereco: dadosCliente.endereco || 'N/A',
-        pedido_detalhes: detalhes,
-        preco_total: total.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' })
-      };
-
-      emailjs.send('service_ws8wnkp', 'template_ms0s3cm', params)
-        .then(() => {
-          document.getElementById("msg").innerText = "Pedido enviado com sucesso!";
-          localStorage.removeItem('carrinho');
-        }, (error) => {
-          document.getElementById("msg").innerText = "Erro ao enviar pedido. Tente novamente.";
-          console.error("Erro:", error);
-        });
-
-      // Atualiza contador do carrinho
-      document.getElementById("contador").innerText = carrinho.length;
-    };
-  </script>
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
       padding: 20px;
-      background: #f4f4f4;
-    }
+    }.container {
+  background: white;
+  padding: 30px;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .cart-info {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      max-width: 500px;
-      margin: auto;
-      text-align: center;
-    }
+h1 {
+  color: #27ae60;
+  text-align: center;
+}
 
-    h1 {
-      color: #27ae60;
-    }
+label {
+  display: block;
+  margin-top: 15px;
+}
 
-    .cart-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
-    .cart-icon {
-      font-size: 24px;
-    }
+.referencia {
+  background-color: #ecf0f1;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-size: 18px;
+}
 
-    .contador {
-      background: #27ae60;
-      color: white;
-      border-radius: 50%;
-      padding: 4px 10px;
-      font-weight: bold;
-    }
+button {
+  margin-top: 20px;
+  background-color: #27ae60;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    #msg {
-      margin-top: 20px;
-      font-weight: bold;
-      color: #2c3e50;
-    }
   </style>
-</head>
-<body>
+</head><body>
+  <div class="container">
+    <h1>Pagamento por Referência</h1><form id="formularioPagamento">
+  <label for="nome">Nome Completo:</label>
+  <input type="text" id="nome" required>
 
-  <div class="cart-info">
-    <div class="cart-header">
-      <h1>PAGAMENTO</h1>
-      <div class="cart-icon">🛒🛍️<span id="contador" class="contador">0</span></div>
-    </div>
+  <label for="email">Email:</label>
+  <input type="email" id="email" required>
 
-    <p><strong>Entidade:</strong> 00445</p>
+  <label for="telefone">Telefone:</label>
+  <input type="text" id="telefone" required>
+
+  <label for="endereco">Endereço:</label>
+  <input type="text" id="endereco" required>
+
+  <div class="referencia">
+    <p><strong>Entidade:</strong> 01011</p>
     <p><strong>Referência:</strong> 954 546 731</p>
-    <p>O seu pedido foi registado. Assim que confirmar o pagamento, entraremos em contacto.</p>
-    <p id="msg">Enviando pedido...</p>
   </div>
 
-</body>
-</html>
+  <button type="submit" id="botaoFinalizar">Finalizar Pedido</button>
+</form>
+
+  </div>  <script>
+    (function () {
+      emailjs.init("onayxrP4KwhBEOKEr");
+    })();
+
+    function enviarPedidoEmail(dadosCliente, pedidoDetalhes, total) {
+      const templateParams = {
+        cliente_nome: dadosCliente.nome,
+        cliente_email: dadosCliente.email,
+        cliente_telefone: dadosCliente.telefone,
+        cliente_endereco: dadosCliente.endereco,
+        pedido_detalhes: pedidoDetalhes,
+        preco_total: total
+      };
+
+      emailjs.send("service_ws8wnkp", "template_ms0s3cm", templateParams)
+        .then(function () {
+          alert("Pedido enviado com sucesso! Verifique seu email.");
+          localStorage.removeItem("carrinho");
+          window.location.href = "obrigado.html";
+        }, function (error) {
+          console.error("Erro ao enviar pedido:", error);
+          alert("Erro ao enviar pedido. Tente novamente.");
+        });
+    }
+
+    document.getElementById("formularioPagamento").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const dadosCliente = {
+        nome: document.getElementById("nome").value,
+        email: document.getElementById("email").value,
+        telefone: document.getElementById("telefone").value,
+        endereco: document.getElementById("endereco").value
+      };
+
+      const carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+      if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+      }
+
+      let pedidoTexto = carrinho.map(item => `- ${item.nome} | ${item.preco}`).join("\n");
+      const total = carrinho.reduce((soma, item) => {
+        return soma + parseFloat(item.preco.replace(/\./g, '').replace(',', '.'));
+      }, 0).toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' });
+
+      enviarPedidoEmail(dadosCliente, pedidoTexto, total);
+    });
+  </script></body></html>
