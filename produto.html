@@ -1,162 +1,156 @@
-<!DOCTYPE html><html lang="pt"><head>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalhes do Produto</title>
+  <title>Produto - PASSENGER PRODUCTS - PP</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
       margin: 0;
-      padding: 0;
-    }header {
-  background-color: #27ae60;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-.container {
-  max-width: 900px;
-  margin: 40px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.produto-detalhes {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.produto-detalhes img {
-  max-width: 300px;
-  border-radius: 8px;
-}
-
-.info {
-  flex: 1;
-}
-
-.info h2 {
-  margin-top: 0;
-}
-
-.preco {
-  font-size: 24px;
-  font-weight: bold;
-  color: #27ae60;
-  margin: 10px 0;
-}
-
-.quantidade-control {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 20px 0;
-}
-
-.quantidade-control button {
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
-  border: none;
-  background-color: #ccc;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.quantidade-control span {
-  font-size: 18px;
-  min-width: 20px;
-  text-align: center;
-}
-
-.acoes button {
-  padding: 12px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.btn-carrinho {
-  background-color: #2c3e50;
-  color: white;
-}
-
-.btn-comprar {
-  background-color: #27ae60;
-  color: white;
-}
-
+      background-color: #f4f4f4;
+    }
+    header {
+      background-color: #27ae60;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #27ae60;
+      padding: 10px 0;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    .produto-container {
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+    .produto-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      text-align: center;
+    }
+    .produto-card img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .produto-card h3 {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+    .produto-card p {
+      font-size: 18px;
+      color: #27ae60;
+    }
+    .produto-card .preco {
+      font-size: 20px;
+      color: #e74c3c;
+      margin: 10px 0;
+    }
+    .produto-card .descricao {
+      font-size: 16px;
+      margin-top: 20px;
+      color: #555;
+    }
+    .produto-card a {
+      display: inline-block;
+      margin-top: 10px;
+      background: #27ae60;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+    }
   </style>
-</head><body>
+</head>
+<body>
   <header>
     <h1>PASSENGER PRODUCTS - PP</h1>
     <p>Beleza, Cuidado e Estilo ao seu alcance</p>
-  </header>  <div class="container">
-    <div class="produto-detalhes">
-      <img id="imagem-produto" src="" alt="Produto">
-      <div class="info">
-        <h2 id="nome-produto"></h2>
-        <div class="preco" id="preco-produto"></div>
-        <p id="descricao-produto"></p><div class="quantidade-control">
-      <button onclick="alterarQuantidade(-1)">-</button>
-      <span id="quantidade">1</span>
-      <button onclick="alterarQuantidade(1)">+</button>
-    </div>
-
-    <div class="acoes">
-      <button class="btn-carrinho" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
-      <button class="btn-comprar" onclick="comprarAgora()">Comprar Agora</button>
-    </div>
+  </header>
+  <div class="navbar">
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
   </div>
-</div>
 
-  </div>  <script>
-    const produtos = [
-      { id: 1, nome: "Pomada Modeladora Wave Pro", preco: "3.500", imagem: "img/produtos/pomada1.jpg", descricao: "Pomada para formação de waves com fixação média e brilho natural." },
-      { id: 2, nome: "Escova Premium Dura", preco: "4.000", imagem: "img/produtos/escova1.jpg", descricao: "Escova de madeira com cerdas naturais, ideal para finalização de waves." },
-      { id: 3, nome: "Durag de Compressão Azul", preco: "2.000", imagem: "img/produtos/durag1.jpg", descricao: "Durag de alta compressão e acabamento premium." },
-      // Adicione mais produtos aqui...
-    ];
+  <section class="produto-container">
+    <div class="produto-card" id="produto-details">
+      <!-- Detalhes do Produto Serão Carregados Aqui -->
+    </div>
+  </section>
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = parseInt(urlParams.get('id'));
-    const produto = produtos.find(p => p.id === id);
+  <footer>
+    <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
+    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
+    <p>
+      <a href="https://www.instagram.com" target="_blank">Instagram</a> |
+      <a href="https://www.facebook.com" target="_blank">Facebook</a> |
+      <a href="https://www.whatsapp.com" target="_blank">WhatsApp</a>
+    </p>
+  </footer>
 
-    if (!produto) {
-      document.querySelector('.container').innerHTML = '<p>Produto não encontrado.</p>';
-    } else {
-      document.getElementById('imagem-produto').src = produto.imagem;
-      document.getElementById('nome-produto').innerText = produto.nome;
-      document.getElementById('preco-produto').innerText = produto.preco + ' Kz';
-      document.getElementById('descricao-produto').innerText = produto.descricao;
+  <script>
+    // Função para obter o ID do produto da URL
+    function getUrlParameter(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
     }
 
-    let quantidade = 1;
-
-    function alterarQuantidade(valor) {
-      quantidade += valor;
-      if (quantidade < 1) quantidade = 1;
-      document.getElementById('quantidade').innerText = quantidade;
-    }
-
-    function adicionarAoCarrinho() {
-      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      for (let i = 0; i < quantidade; i++) {
-        carrinho.push(produto);
+    // Função para carregar o produto
+    function carregarProduto() {
+      const produtoId = getUrlParameter('id');
+      if (!produtoId) {
+        window.location.href = 'produtos.html'; // Redireciona se o ID não for encontrado
+        return;
       }
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      alert('Produto adicionado ao carrinho!');
+
+      const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
+      const produto = produtos.find(p => p.id == produtoId);
+
+      if (produto) {
+        const produtoDetails = document.getElementById('produto-details');
+        produtoDetails.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}" />
+          <h3>${produto.nome}</h3>
+          <p class="preco">${produto.preco}</p>
+          <p class="descricao">${produto.descricao || 'Sem descrição disponível.'}</p>
+          <a href="carrinho.html">Adicionar ao Carrinho</a>
+        `;
+      } else {
+        window.location.href = 'produtos.html'; // Redireciona se o produto não for encontrado
+      }
     }
 
-    function comprarAgora() {
-      adicionarAoCarrinho();
-      window.location.href = 'dados_cliente.html';
-    }
-  </script></body></html>
+    // Carrega o produto quando a página for carregada
+    document.addEventListener('DOMContentLoaded', carregarProduto);
+  </script>
+</body>
+</html>
