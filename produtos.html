@@ -1,166 +1,151 @@
-<script src="js/produtos_data.js"></script>
-<!DOCTYPE html><html lang="pt"><head>
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Produtos - PASSENGER PRODUCTS</title>
+  <title>Produtos - PP</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #f4f4f4;
-    }header {
-  background-color: #27ae60;
-  color: white;
-  padding: 30px 20px;
-  text-align: center;
-}
+    }
 
-header h1 {
-  margin: 0;
-  font-size: 28px;
-}
+    header {
+      background-color: #27ae60;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
 
-nav {
-  background-color: #2c3e50;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 14px 0;
-}
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
+    .titulo-produtos {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      text-align: center;
+    }
 
-.filtro-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
 
-.filtro-container select, .filtro-container input {
-  padding: 8px;
-  font-size: 16px;
-}
+    .produto-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
 
-.filtro-container input {
-  flex: 1;
-  margin-left: 12px;
-  background-image: url('img/lupa.png');
-  background-position: 98% center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-}
+    .produto-card:hover {
+      transform: scale(1.05);
+    }
 
-.produtos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
+    .produto-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
 
-.produto {
-  background: white;
-  border-radius: 8px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+    .produto-card h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
 
-.produto img {
-  width: 100%;
-  height: 150px;
-  object-fit: contain;
-}
+    .produto-card p {
+      color: #888;
+      margin-bottom: 15px;
+    }
 
-.produto h3 {
-  font-size: 16px;
-  margin: 10px 0 5px;
-}
+    .preco {
+      font-size: 18px;
+      color: #27ae60;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.produto p {
-  font-weight: bold;
-  color: #27ae60;
-}
+    .ver-produto-btn {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 16px;
+    }
 
+    .ver-produto-btn:hover {
+      background-color: #2ecc71;
+    }
   </style>
-</head><body>
+</head>
+
+<body>
   <header>
     <h1>Produtos - PASSENGER PRODUCTS</h1>
-  </header>  <nav>
-    <a href="index.html">Início</a>
-    <a href="produtos.html">Produtos</a>
-    <a href="sobre.html">Sobre</a>
-    <a href="contato.html">Contato</a>
-  </nav>  <div class="filtro-container">
-    <select id="categoria">
-      <option value="todos">Todas as Categorias</option>
-      <option value="waves">Waves</option>
-      <option value="acessorios">Acessórios</option>
-      <option value="colares">Colares</option>
-      <option value="beleza">Beleza</option>
-    </select>
-    <input type="text" id="pesquisa" placeholder="Pesquisar produto...">
-  </div>  <div class="produtos" id="lista-produtos">
-    <!-- Produtos serão inseridos por JS -->
-  </div>  <script>
-    const produtos = [
-      { nome: 'Durag Azul', preco: '3.500 Kz', img: 'img/produto1.jpg', categoria: 'waves' },
-      { nome: 'Escova Wave Pro', preco: '5.000 Kz', img: 'img/produto2.jpg', categoria: 'waves' },
-      { nome: 'Pomada Capilar', preco: '4.200 Kz', img: 'img/produto3.jpg', categoria: 'waves' },
-      { nome: 'Colar Estilizado', preco: '2.800 Kz', img: 'img/produto4.jpg', categoria: 'colares' },
-      { nome: 'Touca Waves', preco: '3.000 Kz', img: 'img/produto5.jpg', categoria: 'waves' },
-      { nome: 'Relógio Slim', preco: '6.900 Kz', img: 'img/produto6.jpg', categoria: 'acessorios' },
-      { nome: 'Brincos Prateados', preco: '2.000 Kz', img: 'img/produto7.jpg', categoria: 'acessorios' },
-      { nome: 'Perfume Urban', preco: '8.000 Kz', img: 'img/produto17.jpg', categoria: 'beleza' },
-      { nome: 'Brincos Cristal', preco: '4.500 Kz', img: 'img/produto20.jpg', categoria: 'acessorios' },
-      { nome: 'Escova Max', preco: '5.500 Kz', img: 'img/produto21.jpg', categoria: 'waves' },
-      // Adicione mais produtos conforme necessário
-    ];
+  </header>
 
-    const lista = document.getElementById('lista-produtos');
-    const categoriaSelect = document.getElementById('categoria');
-    const campoPesquisa = document.getElementById('pesquisa');
+  <div class="container">
+    <h2 class="titulo-produtos">Todos os Produtos</h2>
 
-    function exibirProdutos(filtrados) {
-      lista.innerHTML = '';
-      if (filtrados.length === 0) {
-        lista.innerHTML = '<p>Nenhum produto encontrado.</p>';
-        return;
-      }
-      filtrados.forEach(p => {
-        lista.innerHTML += `
-          <div class="produto">
-            <img src="${p.img}" alt="${p.nome}">
-            <h3>${p.nome}</h3>
-            <p>${p.preco}</p>
-          </div>
-        `;
-      });
-    }
+    <div class="produtos-grid">
+      <!-- Exemplo de produto -->
+      <div class="produto-card">
+        <img src="produtos/imagem1.jpg" alt="Produto 1">
+        <h3>Produto 1</h3>
+        <p>Descrição do Produto 1</p>
+        <p class="preco">2.000 Kz</p>
+        <a href="produto.html?id=1" class="ver-produto-btn">Ver Produto</a>
+      </div>
 
-    function filtrarProdutos() {
-      const texto = campoPesquisa.value.toLowerCase();
-      const cat = categoriaSelect.value;
-      const resultado = produtos.filter(p => {
-        const nomeOK = p.nome.toLowerCase().includes(texto);
-        const catOK = cat === 'todos' || p.categoria === cat;
-        return nomeOK && catOK;
-      });
-      exibirProdutos(resultado);
-    }
+      <div class="produto-card">
+        <img src="produtos/imagem2.jpg" alt="Produto 2">
+        <h3>Produto 2</h3>
+        <p>Descrição do Produto 2</p>
+        <p class="preco">1.500 Kz</p>
+        <a href="produto.html?id=2" class="ver-produto-btn">Ver Produto</a>
+      </div>
 
-    categoriaSelect.addEventListener('change', filtrarProdutos);
-    campoPesquisa.addEventListener('input', filtrarProdutos);
+      <div class="produto-card">
+        <img src="produtos/imagem3.jpg" alt="Produto 3">
+        <h3>Produto 3</h3>
+        <p>Descrição do Produto 3</p>
+        <p class="preco">2.800 Kz</p>
+        <a href="produto.html?id=3" class="ver-produto-btn">Ver Produto</a>
+      </div>
 
-    window.onload = () => filtrarProdutos();
-  </script></body></html>
+      <!-- Adicione mais produtos abaixo, repetindo a estrutura -->
+      <div class="produto-card">
+        <img src="produtos/imagem4.jpg" alt="Produto 4">
+        <h3>Produto 4</h3>
+        <p>Descrição do Produto 4</p>
+        <p class="preco">3.200 Kz</p>
+        <a href="produto.html?id=4" class="ver-produto-btn">Ver Produto</a>
+      </div>
+
+      <div class="produto-card">
+        <img src="produtos/imagem5.jpg" alt="Produto 5">
+        <h3>Produto 5</h3>
+        <p>Descrição do Produto 5</p>
+        <p class="preco">1.800 Kz</p>
+        <a href="produto.html?id=5" class="ver-produto-btn">Ver Produto</a>
+      </div>
+
+      <!-- Continue adicionando produtos aqui -->
+    </div>
+  </div>
+</body>
+
+</html>
