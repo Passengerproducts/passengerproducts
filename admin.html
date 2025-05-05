@@ -2,159 +2,204 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Administração - PASSENGER PRODUCTS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Administração - PASSENGER PRODUCTS - PP</title>
+  <link rel="stylesheet" href="css/estilo.css">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f4f4f4;
-    }
-    .login, .admin-panel {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    input, button, select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-    .produto {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 10px 0;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
-    }
-    .produto img {
-      height: 50px;
-      border-radius: 5px;
-    }
-    .opcoes-imagem {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
+    header { background: #27ae60; color: white; padding: 20px; text-align: center; }
+    main { max-width: 900px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; color: #2c3e50; }
+    label { display: block; margin: 10px 0 5px; }
+    input, textarea, select { width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+    button { background: #27ae60; color: white; border: none; padding: 10px 15px; border-radius: 5px; margin-top: 10px; cursor: pointer; }
+    .produto-item, .categoria-item { background: #eee; padding: 10px; border-radius: 5px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+    .produto-item img { max-width: 60px; border-radius: 5px; }
+    .acoes button { margin-left: 5px; }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Painel de Administração</h1>
+  </header>
+  <main>
+    <h2>Adicionar Produto</h2>
+    <form id="form-produto">
+      <label for="imagem">Imagem do Produto:</label>
+      <input type="file" id="imagem" accept="image/*">
 
-<div class="login" id="loginBox">
-  <h2>Login de Administrador</h2>
-  <input type="text" id="user" placeholder="Nome de utilizador" />
-  <input type="password" id="pass" placeholder="Senha" />
-  <button onclick="login()">Entrar</button>
-  <p id="loginErro" style="color:red;"></p>
-</div>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" required>
 
-<div class="admin-panel" id="adminPanel" style="display:none;">
-  <h2>Painel de Administração</h2>
-  <input type="text" id="nome" placeholder="Nome do Produto">
-  <input type="text" id="preco" placeholder="Preço">
-  <select id="categoria">
-    <option value="acessorios">Acessórios</option>
-    <option value="waves">Waves</option>
-    <option value="relógios">Relógios</option>
-    <option value="cuidados">Cuidados</option>
-  </select>
+      <label for="preco">Preço (ex: 2500 AKZ):</label>
+      <input type="text" id="preco" required>
 
-  <div class="opcoes-imagem">
-    <input type="file" id="imagemFile" accept="image/*">
-    <input type="text" id="imagemURL" placeholder="Ou URL da imagem">
-  </div>
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao"></textarea>
 
-  <button onclick="adicionarProduto()">Adicionar Produto</button>
-  <hr>
-  <h3>Produtos Existentes</h3>
-  <div id="produtosLista"></div>
-</div>
+      <label for="quantidade">Quantidade disponível:</label>
+      <input type="number" id="quantidade" min="1" required>
 
-<script>
-  const usuarios = {
-    'Otniel5940': '5940',
-    'DavidSebastiao': 'passenger.products.2025'
-  };
+      <label for="categoria">Categoria:</label>
+      <select id="categoria"></select>
 
-  function login() {
-    const user = document.getElementById('user').value.trim();
-    const pass = document.getElementById('pass').value.trim();
-    const erro = document.getElementById('loginErro');
+      <button type="submit">Salvar Produto</button>
+      <input type="hidden" id="editandoProdutoId">
+    </form>
 
-    if (usuarios[user] && usuarios[user] === pass) {
-      document.getElementById('loginBox').style.display = 'none';
-      document.getElementById('adminPanel').style.display = 'block';
-      carregarProdutos();
-    } else {
-      erro.textContent = "Credenciais inválidas.";
+    <h2>Produtos Cadastrados</h2>
+    <div id="lista-produtos"></div>
+
+    <h2>Gerenciar Categorias</h2>
+    <form id="form-categoria">
+      <label for="nova-categoria">Nova Categoria:</label>
+      <input type="text" id="nova-categoria">
+      <button type="submit">Adicionar Categoria</button>
+    </form>
+    <div id="lista-categorias"></div>
+  </main>
+
+  <script>
+    const produtosKey = 'produtos_admin';
+    const categoriasKey = 'categorias_produtos';
+    const form = document.getElementById('form-produto');
+    const listaProdutos = document.getElementById('lista-produtos');
+    const selectCategoria = document.getElementById('categoria');
+    const formCategoria = document.getElementById('form-categoria');
+    const listaCategorias = document.getElementById('lista-categorias');
+
+    let produtos = JSON.parse(localStorage.getItem(produtosKey)) || [];
+    let categorias = JSON.parse(localStorage.getItem(categoriasKey)) || ['acessorios', 'waves', 'relógios', 'cuidados'];
+
+    function salvarProdutos() {
+      localStorage.setItem(produtosKey, JSON.stringify(produtos));
     }
-  }
 
-  function adicionarProduto() {
-    const nome = document.getElementById('nome').value;
-    const preco = document.getElementById('preco').value;
-    const categoria = document.getElementById('categoria').value;
-    const file = document.getElementById('imagemFile').files[0];
-    const imagemURL = document.getElementById('imagemURL').value;
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        salvarProduto(nome, preco, categoria, e.target.result);
-      };
-      reader.readAsDataURL(file);
-    } else if (imagemURL.trim() !== '') {
-      salvarProduto(nome, preco, categoria, imagemURL);
-    } else {
-      alert("Por favor selecione uma imagem ou insira a URL.");
+    function salvarCategorias() {
+      localStorage.setItem(categoriasKey, JSON.stringify(categorias));
     }
-  }
 
-  function salvarProduto(nome, preco, categoria, imagem) {
-    const produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
-    const id = Date.now();
-    produtos.push({ id, nome, preco, categoria, imagem });
-    localStorage.setItem('produtosPP', JSON.stringify(produtos));
-    carregarProdutos();
-    limparCampos();
-  }
+    function carregarCategorias() {
+      selectCategoria.innerHTML = '';
+      categorias.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        selectCategoria.appendChild(option);
+      });
 
-  function limparCampos() {
-    document.getElementById('nome').value = '';
-    document.getElementById('preco').value = '';
-    document.getElementById('imagemFile').value = '';
-    document.getElementById('imagemURL').value = '';
-  }
+      listaCategorias.innerHTML = '';
+      categorias.forEach(cat => {
+        const div = document.createElement('div');
+        div.className = 'categoria-item';
+        div.innerHTML = `${cat} <button onclick="removerCategoria('${cat}')">Remover</button>`;
+        listaCategorias.appendChild(div);
+      });
+    }
 
-  function carregarProdutos() {
-    const produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
-    const lista = document.getElementById('produtosLista');
-    lista.innerHTML = '';
-    produtos.forEach(prod => {
-      const div = document.createElement('div');
-      div.className = 'produto';
-      div.innerHTML = `
-        <div>
-          <img src="${prod.imagem}" alt="imagem">
-          <strong>${prod.nome}</strong><br>
-          ${prod.preco} - ${prod.categoria}
-        </div>
-        <button onclick="removerProduto(${prod.id})">Remover</button>
-      `;
-      lista.appendChild(div);
+    function carregarProdutos() {
+      listaProdutos.innerHTML = '';
+      produtos.forEach((p, index) => {
+        const div = document.createElement('div');
+        div.className = 'produto-item';
+        div.innerHTML = `
+          <img src="${p.imagem}" alt="${p.nome}" />
+          <div>
+            <strong>${p.nome}</strong><br>
+            ${p.preco} | ${p.quantidade} disponíveis<br>
+            <small>${p.categoria}</small><br>
+            <em>${p.descricao}</em>
+          </div>
+          <div class="acoes">
+            <button onclick="editarProduto(${index})">✏️</button>
+            <button onclick="removerProduto(${index})">🗑️</button>
+          </div>
+        `;
+        listaProdutos.appendChild(div);
+      });
+    }
+
+    function editarProduto(index) {
+      const p = produtos[index];
+      document.getElementById('nome').value = p.nome;
+      document.getElementById('preco').value = p.preco;
+      document.getElementById('descricao').value = p.descricao;
+      document.getElementById('quantidade').value = p.quantidade;
+      document.getElementById('categoria').value = p.categoria;
+      document.getElementById('editandoProdutoId').value = index;
+    }
+
+    function removerProduto(index) {
+      if (confirm('Deseja realmente remover este produto?')) {
+        produtos.splice(index, 1);
+        salvarProdutos();
+        carregarProdutos();
+      }
+    }
+
+    function removerCategoria(cat) {
+      categorias = categorias.filter(c => c !== cat);
+      salvarCategorias();
+      carregarCategorias();
+    }
+
+    formCategoria.addEventListener('submit', e => {
+      e.preventDefault();
+      const nova = document.getElementById('nova-categoria').value.trim();
+      if (nova && !categorias.includes(nova)) {
+        categorias.push(nova);
+        salvarCategorias();
+        carregarCategorias();
+      }
+      document.getElementById('nova-categoria').value = '';
     });
-  }
 
-  function removerProduto(id) {
-    let produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
-    produtos = produtos.filter(p => p.id !== id);
-    localStorage.setItem('produtosPP', JSON.stringify(produtos));
-    carregarProdutos();
-  }
-</script>
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const preco = document.getElementById('preco').value;
+      const descricao = document.getElementById('descricao').value;
+      const quantidade = parseInt(document.getElementById('quantidade').value);
+      const categoria = document.getElementById('categoria').value;
+      const imagemInput = document.getElementById('imagem');
+      const editandoId = document.getElementById('editandoProdutoId').value;
 
+      const reader = new FileReader();
+      reader.onload = () => {
+        const imagemBase64 = reader.result;
+        const novoProduto = { nome, preco, descricao, quantidade, categoria, imagem: imagemBase64 };
+
+        if (editandoId !== '') {
+          produtos[editandoId] = novoProduto;
+        } else {
+          produtos.push(novoProduto);
+        }
+        salvarProdutos();
+        carregarProdutos();
+        form.reset();
+        document.getElementById('editandoProdutoId').value = '';
+      };
+
+      if (imagemInput.files.length > 0) {
+        reader.readAsDataURL(imagemInput.files[0]);
+      } else if (editandoId !== '') {
+        const produtoExistente = produtos[editandoId];
+        const imagemBase64 = produtoExistente.imagem;
+        const novoProduto = { nome, preco, descricao, quantidade, categoria, imagem: imagemBase64 };
+        produtos[editandoId] = novoProduto;
+        salvarProdutos();
+        carregarProdutos();
+        form.reset();
+        document.getElementById('editandoProdutoId').value = '';
+      } else {
+        alert('Selecione uma imagem.');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      carregarCategorias();
+      carregarProdutos();
+    });
+  </script>
 </body>
 </html>
