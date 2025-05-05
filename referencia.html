@@ -1,72 +1,57 @@
-(function() {
-    emailjs.init("onayxrP4KwhBEOKEr"); // Substitua YOUR_PUBLIC_API_KEY pela sua chave pública do EmailJS
-})();
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<!DOCTYPE html>
-<html lang="pt">
-<head>
+<!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pagamento por Referência</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("onayxrP4KwhBEOKEr");
+    })();function enviarPedidoPorEmail(dadosCliente, produtos, total) {
+  const produtosTexto = produtos.map(p => `• ${p.nome} - ${p.quantidade || 1} x ${p.preco}`).join('\n');
 
-    .container {
-      background-color: white;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+  const templateParams = {
+    nome: dadosCliente.nome,
+    telefone: dadosCliente.telefone,
+    email: dadosCliente.email,
+    produtos: produtosTexto,
+    total: total
+  };
 
-    h1 {
-      color: #2c3e50;
-      margin-bottom: 20px;
-    }
+  emailjs.send("service_ws8wnkp", "template_ms0s3cm", templateParams)
+    .then(function (response) {
+      alert("Pedido enviado com sucesso! Entraremos em contacto em breve.");
+    }, function (error) {
+      console.error("Erro ao enviar o e-mail:", error);
+      alert("Erro ao enviar pedido. Tente novamente.");
+    });
+}
 
-    p {
-      font-size: 18px;
-      margin: 10px 0;
-    }
+window.onload = function () {
+  const cliente = {
+    nome: localStorage.getItem('cliente_nome') || "(sem nome)",
+    telefone: localStorage.getItem('cliente_telefone') || "(sem telefone)",
+    email: localStorage.getItem('cliente_email') || "(sem email)"
+  };
 
-    .btn {
-      display: inline-block;
-      background-color: #006837;
-      color: white;
-      padding: 12px 24px;
-      margin-top: 30px;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-    }
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const total = carrinho.reduce((acc, item) => acc + (parseFloat(item.preco.replace(/\./g, '').replace(',', '.')) * (item.quantidade || 1)), 0);
 
-    .btn:hover {
-      background-color: #004d2b;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Dados para pagamento por referência</h1>
-    <p><strong>Entidade:</strong> 10116</p>
-    <p><strong>Referência:</strong> 954 546 731</p>
-    <p><strong>Valor:</strong> Inserir o valor conforme o produto</p>
+  enviarPedidoPorEmail(cliente, carrinho, total.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' }));
+}
 
-    <p style="margin-top: 40px;">
-      O processo de entrega será iniciado logo que o pagamento for concluído e confirmado.<br>
-      Atenciosamente, <strong>PASSENGER PRODUCTS - PP</strong>!
-    </p>
-
-    <a class="btn" href="index.html">← Voltar</a>
-  </div>
-</body>
-</html>
-<button onclick="sendOrderConfirmation()">Finalizar Encomenda</button>
+  </script>
+</head><body>
+  <header>
+    <h1>Pagamento por Referência</h1>
+  </header>
+  <main style="text-align:center; padding: 40px;">
+    <h2>Use a referência abaixo para realizar o pagamento:</h2>
+    <p style="font-size: 24px; font-weight: bold; margin-top: 20px;">Referência: 954 546 731</p>
+    <p>Assim que recebermos o pagamento, entraremos em contacto pelo seu WhatsApp ou email para confirmação.</p>
+  </main>
+  <footer style="text-align: center; padding: 20px; background: #eee;">
+    <p>&copy; 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
+    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
+  </footer>
+</body></html>
