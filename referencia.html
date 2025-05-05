@@ -1,58 +1,106 @@
-<!DOCTYPE html><html lang="pt"><head>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pagamento por Referência</title>
-  <link rel="stylesheet" href="css/estilo.css">
   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
-    (function () {
-      emailjs.init("onayxrP4KwhBEOKEr");
-    })();function enviarPedidoPorEmail(dadosCliente, produtos, total) {
-  const produtosTexto = produtos.map(p => `• ${p.nome} - ${p.quantidade || 1} x ${p.preco}`).join('\n');
+    window.onload = function () {
+      emailjs.init('onayxrP4KwhBEOKEr'); // Substitua com sua public key
 
-  const templateParams = {
-    nome: dadosCliente.nome,
-    telefone: dadosCliente.telefone,
-    email: dadosCliente.email,
-    produtos: produtosTexto,
-    total: total
-  };
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      const dadosCliente = JSON.parse(localStorage.getItem('dadosCliente')) || {};
 
-  emailjs.send("service_ws8wnkp", "template_ms0s3cm", templateParams)
-    .then(function (response) {
-      alert("Pedido enviado com sucesso! Entraremos em contacto em breve.");
-    }, function (error) {
-      console.error("Erro ao enviar o e-mail:", error);
-      alert("Erro ao enviar pedido. Tente novamente.");
-    });
-}
+      let total = 0;
+      let detalhes = '';
 
-window.onload = function () {
-  const cliente = {
-    nome: localStorage.getItem('cliente_nome') || "(sem nome)",
-    telefone: localStorage.getItem('cliente_telefone') || "(sem telefone)",
-    email: localStorage.getItem('cliente_email') || "(sem email)"
-  };
+      carrinho.forEach((item, i) => {
+        total += parseFloat(item.preco.replace('.', '').replace(',', '.'));
+        detalhes += `${i + 1}. ${item.nome} - ${item.preco} Kz\n`;
+      });
 
-  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-  const total = carrinho.reduce((acc, item) => acc + (parseFloat(item.preco.replace(/\./g, '').replace(',', '.')) * (item.quantidade || 1)), 0);
+      const params = {
+        cliente_nome: dadosCliente.nome || 'N/A',
+        cliente_email: dadosCliente.email || 'N/A',
+        cliente_telefone: dadosCliente.telefone || 'N/A',
+        cliente_endereco: dadosCliente.endereco || 'N/A',
+        pedido_detalhes: detalhes,
+        preco_total: total.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' })
+      };
 
-  enviarPedidoPorEmail(cliente, carrinho, total.toLocaleString('pt-AO', { style: 'currency', currency: 'AOA' }));
-}
+      emailjs.send('service_ws8wnkp', 'template_ms0s3cm', params)
+        .then(() => {
+          document.getElementById("msg").innerText = "Pedido enviado com sucesso!";
+          localStorage.removeItem('carrinho');
+        }, (error) => {
+          document.getElementById("msg").innerText = "Erro ao enviar pedido. Tente novamente.";
+          console.error("Erro:", error);
+        });
 
+      // Atualiza contador do carrinho
+      document.getElementById("contador").innerText = carrinho.length;
+    };
   </script>
-</head><body>
-  <header>
-    <h1>Pagamento por Referência</h1>
-  </header>
-  <main style="text-align:center; padding: 40px;">
-    <h2>Use a referência abaixo para realizar o pagamento:</h2>
-<p><strong>Entidade:</strong> 00445</p>
-<p><strong>Referência:</strong> 954 546 731</p>
-    <p>Assim que recebermos o pagamento, entraremos em contacto pelo seu WhatsApp ou email para confirmação.</p>
-  </main>
-  <footer style="text-align: center; padding: 20px; background: #eee;">
-    <p>&copy; 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
-    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
-  </footer>
-</body></html>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    .cart-info {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: #27ae60;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .cart-icon {
+      font-size: 24px;
+    }
+
+    .contador {
+      background: #27ae60;
+      color: white;
+      border-radius: 50%;
+      padding: 4px 10px;
+      font-weight: bold;
+    }
+
+    #msg {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cart-info">
+    <div class="cart-header">
+      <h1>PAGAMENTO</h1>
+      <div class="cart-icon">🛒🛍️<span id="contador" class="contador">0</span></div>
+    </div>
+
+    <p><strong>Entidade:</strong> 00445</p>
+    <p><strong>Referência:</strong> 954 546 731</p>
+    <p>O seu pedido foi registado. Assim que confirmar o pagamento, entraremos em contacto.</p>
+    <p id="msg">Enviando pedido...</p>
+  </div>
+
+</body>
+</html>
