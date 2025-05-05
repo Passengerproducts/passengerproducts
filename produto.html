@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="pt"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produto - Passenger Products</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }header {
+  background-color: #27ae60;
+  color: white;
+  text-align: center;
+  padding: 16px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.imagem-produto {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.quantidade-container {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.quantidade-container button {
+  padding: 5px 10px;
+  font-size: 18px;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+}
+
+.quantidade-container span {
+  padding: 0 10px;
+  font-size: 18px;
+}
+
+.btn-container {
+  margin-top: 20px;
+}
+
+.btn-container button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+  </style>
+</head><body>
+  <header>
+    <h1>PASSENGER PRODUCTS - PP</h1>
+  </header>  <div class="container">
+    <img id="imagem-produto" class="imagem-produto" src="" alt="Imagem do Produto">
+    <h2 id="nome-produto"></h2>
+    <h3 id="preco-produto"></h3>
+    <p id="info-produto"></p><div class="quantidade-container">
+  <button onclick="alterarQuantidade(-1)">-</button>
+  <span id="quantidade">1</span>
+  <button onclick="alterarQuantidade(1)">+</button>
+</div>
+
+<div class="btn-container">
+  <button onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+  <button onclick="comprarAgora()">Comprar Agora</button>
+</div>
+
+  </div>  <script>
+    const produtos = [
+      {
+        id: 1,
+        nome: 'Pomada Wave King',
+        preco: '2.500',
+        imagem: 'img/pomada1.jpg',
+        info: 'Pomada ideal para formação de waves, hidrata e define.'
+      },
+      {
+        id: 2,
+        nome: 'Escova Dura para Waves',
+        preco: '1.200',
+        imagem: 'img/escova_dura.jpg',
+        info: 'Escova ideal para sessões de treino intenso de waves.'
+      },
+      {
+        id: 3,
+        nome: 'Touca de Compressão',
+        preco: '1.000',
+        imagem: 'img/touca1.jpg',
+        info: 'Touca dupla camada para manter as waves durante a noite.'
+      },
+      {
+        id: 4,
+        nome: 'Relógio Fashion Digital',
+        preco: '3.000',
+        imagem: 'img/relogio1.jpg',
+        info: 'Relógio estiloso, resistente à água e com design moderno.'
+      },
+      {
+        id: 5,
+        nome: 'Durag Preta Premium',
+        preco: '800',
+        imagem: 'img/durag1.jpg',
+        info: 'Durag de cetim preto para uma compressão perfeita e estilo.'
+      }
+    ];
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = parseInt(urlParams.get('id'));
+    const produto = produtos.find(p => p.id === id);
+
+    if (produto) {
+      document.getElementById('imagem-produto').src = produto.imagem;
+      document.getElementById('nome-produto').innerText = produto.nome;
+      document.getElementById('preco-produto').innerText = produto.preco + ' Kz';
+      document.getElementById('info-produto').innerText = produto.info;
+    } else {
+      document.querySelector('.container').innerHTML = '<p>Produto não encontrado.</p>';
+    }
+
+    let quantidade = 1;
+    function alterarQuantidade(valor) {
+      quantidade = Math.max(1, quantidade + valor);
+      document.getElementById('quantidade').innerText = quantidade;
+    }
+
+    function adicionarAoCarrinho() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      for (let i = 0; i < quantidade; i++) {
+        carrinho.push(produto);
+      }
+      localStorage.setItem('carrinho', JSON.stringify(carrinho));
+      alert('Produto adicionado ao carrinho!');
+    }
+
+    function comprarAgora() {
+      adicionarAoCarrinho();
+      window.location.href = 'dados_cliente.html';
+    }
+  </script></body></html>
