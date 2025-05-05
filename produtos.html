@@ -48,6 +48,19 @@
       color: #e74c3c;
       margin-left: 5px;
     }
+    .filtros {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+    }
+    .filtros input, .filtros select {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
     .produtos-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -109,10 +122,23 @@
   <div class="carrinho" onclick="window.location.href='carrinho.html'">
     🛒🛍️<span id="contador-carrinho">0</span>
   </div>
+
+  <section class="filtros">
+    <input type="text" id="pesquisa" placeholder="Pesquisar produto...">
+    <select id="categoria">
+      <option value="todas">Todas as Categorias</option>
+      <option value="acessorios">Acessórios</option>
+      <option value="waves">Waves</option>
+      <option value="relógios">Relógios</option>
+      <option value="cuidados">Cuidados</option>
+    </select>
+  </section>
+
   <section>
-    <h2 style="text-align:center; margin-top: 30px;">Todos os Produtos</h2>
+    <h2 style="text-align:center; margin-top: 10px;">Todos os Produtos</h2>
     <div class="produtos-container" id="lista-produtos"></div>
   </section>
+
   <footer>
     <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
     <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
@@ -121,17 +147,23 @@
       <a href="https://www.facebook.com" target="_blank">Facebook</a> |
       <a href="https://www.whatsapp.com" target="_blank">WhatsApp</a>
     </p>
-  </footer>  <script src="produtos_data.js"></script>  <script>
+  </footer>
+
+  <script src="produtos_data.js"></script>
+  <script>
     const lista = document.getElementById('lista-produtos');
     const contador = document.getElementById('contador-carrinho');
+    const pesquisa = document.getElementById('pesquisa');
+    const categoria = document.getElementById('categoria');
 
     function atualizarContador() {
       const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
       contador.textContent = carrinho.length;
     }
 
-    function renderizarTodosProdutos() {
-      produtos.forEach(produto => {
+    function renderizarProdutos(filtrados) {
+      lista.innerHTML = '';
+      filtrados.forEach(produto => {
         const card = document.createElement('div');
         card.className = 'produto-card';
         card.innerHTML = `
@@ -144,9 +176,23 @@
       });
     }
 
+    function filtrarProdutos() {
+      const termo = pesquisa.value.toLowerCase();
+      const cat = categoria.value;
+      const filtrados = produtos.filter(p => {
+        const nomeCombina = p.nome.toLowerCase().includes(termo);
+        const categoriaCombina = (cat === 'todas') || (p.categoria === cat);
+        return nomeCombina && categoriaCombina;
+      });
+      renderizarProdutos(filtrados);
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       atualizarContador();
-      renderizarTodosProdutos();
+      renderizarProdutos(produtos);
+      pesquisa.addEventListener('input', filtrarProdutos);
+      categoria.addEventListener('change', filtrarProdutos);
     });
-  </script></body>
+  </script>
+</body>
 </html>
