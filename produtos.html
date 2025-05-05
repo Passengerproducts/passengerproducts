@@ -1,8 +1,9 @@
-<!DOCTYPE html><html lang="pt">
+<!DOCTYPE html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo de Produtos | PASSENGER PRODUCTS - PP</title>
+  <title>Produtos - PASSENGER PRODUCTS - PP</title>
   <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
@@ -149,7 +150,6 @@
     </p>
   </footer>
 
-  <script src="produtos_data.js"></script>
   <script>
     const lista = document.getElementById('lista-produtos');
     const contador = document.getElementById('contador-carrinho');
@@ -161,16 +161,21 @@
       contador.textContent = carrinho.length;
     }
 
-    function renderizarProdutos(filtrados) {
+    function obterProdutos() {
+      const produtosJSON = localStorage.getItem('produtos');
+      return produtosJSON ? JSON.parse(produtosJSON) : [];
+    }
+
+    function renderizarProdutos(produtos) {
       lista.innerHTML = '';
-      filtrados.forEach(produto => {
+      produtos.forEach(produto => {
         const card = document.createElement('div');
         card.className = 'produto-card';
         card.innerHTML = `
           <img src="${produto.imagem}" alt="${produto.nome}" />
           <h3>${produto.nome}</h3>
           <p>${produto.preco}</p>
-          <a href="produto.html?id=${produto.id}">Ver Produto</a>
+          <a href="produto.html?id=${produto.id || ''}">Ver Produto</a>
         `;
         lista.appendChild(card);
       });
@@ -179,6 +184,7 @@
     function filtrarProdutos() {
       const termo = pesquisa.value.toLowerCase();
       const cat = categoria.value;
+      const produtos = obterProdutos();
       const filtrados = produtos.filter(p => {
         const nomeCombina = p.nome.toLowerCase().includes(termo);
         const categoriaCombina = (cat === 'todas') || (p.categoria === cat);
@@ -189,6 +195,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       atualizarContador();
+      const produtos = obterProdutos();
       renderizarProdutos(produtos);
       pesquisa.addEventListener('input', filtrarProdutos);
       categoria.addEventListener('change', filtrarProdutos);
