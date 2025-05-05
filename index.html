@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt">
-
-<head>
+<!DOCTYPE html><html lang="pt"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PASSENGER PRODUCTS - PP</title>
@@ -11,154 +8,119 @@
       font-family: Arial, sans-serif;
       margin: 0;
       background-color: #f4f4f4;
-    }
+    }header {
+  background-color: #27ae60;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-    header {
-      background-color: #27ae60;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #27ae60;
+  padding: 10px 0;
+}
 
-    .navbar {
-      display: flex;
-      justify-content: center;
-      background-color: #27ae60;
-      padding: 10px 0;
-    }
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+}
 
-    .navbar a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 16px;
-    }
+.navbar a:hover {
+  text-decoration: underline;
+}
 
-    .navbar a:hover {
-      text-decoration: underline;
-    }
+.carrinho {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: white;
+  padding: 10px;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 1000;
+}
 
-    .contador-carrinho {
-      background-color: #e74c3c;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 50%;
-      font-size: 14px;
-      position: absolute;
-      top: 15px;
-      right: 35px;
-    }
+.carrinho span {
+  font-size: 16px;
+  color: #e74c3c;
+  margin-left: 5px;
+}
 
-    .carrinho {
-      position: relative;
-      display: inline-block;
-      font-size: 24px;
-      margin-right: 30px;
-      cursor: pointer;
-    }
+.produtos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
 
-    .produtos-section {
-      display: flex;
-      justify-content: space-around;
-      margin: 20px 0;
-    }
+.produto-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
 
-    .produto-card {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      width: 30%;
-      text-align: center;
-      padding: 20px;
-    }
+.produto-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
 
-    .produto-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
+.produto-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
 
-    .produto-card h3 {
-      font-size: 18px;
-      margin: 10px 0;
-    }
+.produto-card p {
+  font-size: 16px;
+  color: #27ae60;
+}
 
-    .produto-card p {
-      color: #27ae60;
-      font-weight: bold;
-      margin: 10px 0;
-    }
+.produto-card a {
+  display: inline-block;
+  margin-top: 10px;
+  background: #27ae60;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+}
 
-    .produto-card a {
-      background-color: #27ae60;
-      color: white;
-      text-decoration: none;
-      padding: 8px 20px;
-      border-radius: 4px;
-    }
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-    .produto-card a:hover {
-      background-color: #2ecc71;
-    }
+footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
 
-    .footer {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .footer a {
-      color: white;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-
-    .footer a:hover {
-      text-decoration: underline;
-    }
   </style>
-</head>
-
-<body>
+</head><body>
   <header>
     <h1>PASSENGER PRODUCTS - PP</h1>
     <p>Beleza, Cuidado e Estilo ao seu alcance</p>
-  </header>
-
-  <div class="navbar">
+  </header>  <div class="navbar">
     <a href="index.html">Início</a>
     <a href="produtos.html">Produtos</a>
     <a href="sobre.html">Sobre</a>
     <a href="contato.html">Contato</a>
-  </div>
-
-  <!-- Carrinho de compras -->
-  <div class="carrinho">
-    🛒
-    <span id="contador-carrinho" class="contador-carrinho">0</span>
-  </div>
-
-  <!-- Seções de Produtos -->
-  <div class="produtos-section">
-    <div class="produtos">
-      <h2>Em Alta</h2>
-      <div id="produtos-em-alta"></div>
-    </div>
-    <div class="produtos">
-      <h2>Em Destaque</h2>
-      <div id="produtos-em-destaque"></div>
-    </div>
-    <div class="produtos">
-      <h2>Mais Vendidos</h2>
-      <div id="produtos-mais-vendidos"></div>
-    </div>
-  </div>
-
-  <h2>Produtos Estilosos para o seu Dia-a-Dia</h2>
-
-  <!-- Footer -->
-  <div class="footer">
+  </div>  <div class="carrinho" onclick="window.location.href='carrinho.html'">
+    🛒🛍️<span id="contador-carrinho">0</span>
+  </div>  <section>
+    <h2 style="text-align:center; margin-top: 30px;">Produtos Estilosos para o seu Dia-a-Dia</h2>
+    <div class="produtos-container" id="produtos-destaque"></div>
+  </section>  <footer>
     <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
     <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
     <p>
@@ -166,69 +128,32 @@
       <a href="https://www.facebook.com" target="_blank">Facebook</a> |
       <a href="https://www.whatsapp.com" target="_blank">WhatsApp</a>
     </p>
-  </div>
+  </footer>  <script src="produtos_data.js"></script>  <script>
+    const container = document.getElementById('produtos-destaque');
+    const contador = document.getElementById('contador-carrinho');
 
-  <script src="produtos_data.js"></script>
-  <script>
-    // Atualizar contador de itens no carrinho
-    function atualizarContadorCarrinho() {
+    function atualizarContador() {
       const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-      const contadorCarrinho = document.getElementById('contador-carrinho');
-      contadorCarrinho.textContent = carrinho.length;
+      contador.textContent = carrinho.length;
     }
 
-    // Exibir produtos nas seções
-    function exibirProdutos(produtos) {
-      const emAlta = document.getElementById('produtos-em-alta');
-      const emDestaque = document.getElementById('produtos-em-destaque');
-      const maisVendidos = document.getElementById('produtos-mais-vendidos');
-
-      // Exibir produtos "Em Alta"
-      produtos.forEach(produto => {
-        const produtoCard = document.createElement('div');
-        produtoCard.className = 'produto-card';
-        produtoCard.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}">
+    function renderizarProdutos() {
+      const produtosSelecionados = produtos.slice(0, 6); // apenas alguns produtos
+      produtosSelecionados.forEach(produto => {
+        const card = document.createElement('div');
+        card.className = 'produto-card';
+        card.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}" />
           <h3>${produto.nome}</h3>
           <p>${produto.preco}</p>
           <a href="produto.html?id=${produto.id}">Ver Produto</a>
         `;
-        emAlta.appendChild(produtoCard);
-      });
-
-      // Exibir produtos "Em Destaque"
-      produtos.slice(0, 3).forEach(produto => {
-        const produtoCard = document.createElement('div');
-        produtoCard.className = 'produto-card';
-        produtoCard.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}">
-          <h3>${produto.nome}</h3>
-          <p>${produto.preco}</p>
-          <a href="produto.html?id=${produto.id}">Ver Produto</a>
-        `;
-        emDestaque.appendChild(produtoCard);
-      });
-
-      // Exibir produtos "Mais Vendidos"
-      produtos.slice(0, 3).forEach(produto => {
-        const produtoCard = document.createElement('div');
-        produtoCard.className = 'produto-card';
-        produtoCard.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}">
-          <h3>${produto.nome}</h3>
-          <p>${produto.preco}</p>
-          <a href="produto.html?id=${produto.id}">Ver Produto</a>
-        `;
-        maisVendidos.appendChild(produtoCard);
+        container.appendChild(card);
       });
     }
 
-    // Chamar funções para exibir os produtos e atualizar o contador do carrinho
     document.addEventListener('DOMContentLoaded', () => {
-      atualizarContadorCarrinho();
-      exibirProdutos(produtos);
+      atualizarContador();
+      renderizarProdutos();
     });
-  </script>
-</body>
-
-</html>
+  </script></body></html>
