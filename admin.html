@@ -2,175 +2,112 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Admin - PASSENGER PRODUCTS - PP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel de Administração - PASSENGER PRODUCTS - PP</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
+      background-color: #f4f4f4;
+      padding: 30px;
     }
-    h2, h3 {
+    h1 {
       text-align: center;
       color: #27ae60;
     }
-    .container {
-      max-width: 600px;
-      margin: auto;
+    form {
       background: white;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
+      max-width: 500px;
+      margin: 0 auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
-    input, select, button {
+    label {
       display: block;
+      margin: 10px 0 5px;
+    }
+    input, select {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
-      background: #27ae60;
+      width: 100%;
+      padding: 12px;
+      background-color: #27ae60;
       color: white;
       border: none;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
     }
     button:hover {
-      background: #219150;
+      background-color: #219150;
     }
-    .lista-produtos {
-      margin-top: 20px;
-    }
-    .produto-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-      padding: 10px 0;
-    }
-    .produto-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
-    .produto-info {
-      flex-grow: 1;
-    }
-    .produto-info p {
-      margin: 2px 0;
-    }
-    .remover {
-      background: #e74c3c;
-      border: none;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
+    .sucesso {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="login-container">
-    <h2>Login do Administrador</h2>
-    <input type="text" id="user" placeholder="Usuário">
-    <input type="password" id="pass" placeholder="Senha">
-    <button onclick="fazerLogin()">Entrar</button>
-  </div>
 
-  <div class="container" id="painel" style="display:none;">
-    <h3>Adicionar Produto</h3>
-    <input type="text" id="nome" placeholder="Nome do Produto">
-    <input type="text" id="preco" placeholder="Preço (Ex: Kz 2.500)">
-    <input type="text" id="imagem" placeholder="URL da imagem">
-    <select id="categoria">
-      <option value="relógios">Relógios</option>
-      <option value="waves">Waves</option>
+  <h1>Adicionar Produto</h1>
+
+  <form id="form-produto">
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" id="nome" required>
+
+    <label for="preco">Preço (ex: 2500 Kz):</label>
+    <input type="text" id="preco" required>
+
+    <label for="imagem">URL da Imagem:</label>
+    <input type="text" id="imagem" required>
+
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" required>
       <option value="acessorios">Acessórios</option>
+      <option value="waves">Waves</option>
+      <option value="relógios">Relógios</option>
       <option value="cuidados">Cuidados</option>
     </select>
-    <button onclick="adicionarProduto()">Salvar Produto</button>
 
-    <div class="lista-produtos" id="lista-produtos">
-      <h3>Produtos Cadastrados</h3>
-      <!-- Lista renderizada aqui -->
-    </div>
-  </div>
+    <button type="submit">Salvar Produto</button>
+    <p class="sucesso" id="msg-sucesso"></p>
+  </form>
 
   <script>
-    function fazerLogin() {
-      const u = document.getElementById("user").value;
-      const p = document.getElementById("pass").value;
-      if (u === "admin" && p === "1234") {
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("painel").style.display = "block";
-        mostrarProdutos();
-      } else {
-        alert("Credenciais incorretas!");
-      }
-    }
+    const form = document.getElementById('form-produto');
+    const msg = document.getElementById('msg-sucesso');
 
-    function adicionarProduto() {
-      const nome = document.getElementById("nome").value;
-      const preco = document.getElementById("preco").value;
-      const imagem = document.getElementById("imagem").value;
-      const categoria = document.getElementById("categoria").value;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-      if (!nome || !preco || !imagem) {
-        alert("Preencha todos os campos!");
-        return;
-      }
+      const nome = document.getElementById('nome').value.trim();
+      const preco = document.getElementById('preco').value.trim();
+      const imagem = document.getElementById('imagem').value.trim();
+      const categoria = document.getElementById('categoria').value;
 
-      const produtos = JSON.parse(localStorage.getItem("produtos")) || [];
       const novoProduto = {
-        id: Date.now(),
+        id: Date.now(), // ID único
         nome,
         preco,
         imagem,
         categoria
       };
 
+      const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
       produtos.push(novoProduto);
-      localStorage.setItem("produtos", JSON.stringify(produtos));
-      alert("Produto adicionado com sucesso!");
-      limparCampos();
-      mostrarProdutos();
-    }
+      localStorage.setItem('produtos', JSON.stringify(produtos));
 
-    function limparCampos() {
-      document.getElementById("nome").value = "";
-      document.getElementById("preco").value = "";
-      document.getElementById("imagem").value = "";
-    }
+      msg.textContent = 'Produto salvo com sucesso!';
 
-    function mostrarProdutos() {
-      const produtos = JSON.parse(localStorage.getItem("produtos")) || [];
-      const lista = document.getElementById("lista-produtos");
-      lista.innerHTML = '<h3>Produtos Cadastrados</h3>';
-
-      produtos.forEach((p, i) => {
-        const item = document.createElement("div");
-        item.className = "produto-item";
-        item.innerHTML = `
-          <img src="${p.imagem}" alt="${p.nome}">
-          <div class="produto-info">
-            <p><strong>${p.nome}</strong></p>
-            <p>${p.preco}</p>
-            <p><em>${p.categoria}</em></p>
-          </div>
-          <button class="remover" onclick="removerProduto(${p.id})">Remover</button>
-        `;
-        lista.appendChild(item);
-      });
-    }
-
-    function removerProduto(id) {
-      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
-      produtos = produtos.filter(p => p.id !== id);
-      localStorage.setItem("produtos", JSON.stringify(produtos));
-      mostrarProdutos();
-    }
+      form.reset();
+    });
   </script>
+
 </body>
 </html>
