@@ -184,101 +184,94 @@
       <a href="https://www.whatsapp.com" target="_blank">WhatsApp</a>
     </p>
   </footer>
+<script>
+  const lista = document.getElementById('lista-produtos');
+  const contador = document.getElementById('contador-carrinho');
+  const pesquisa = document.getElementById('pesquisa');
+  const categoria = document.getElementById('categoria');
 
-  <script>
-    const lista = document.getElementById('lista-produtos');
-    const contador = document.getElementById('contador-carrinho');
-    const pesquisa = document.getElementById('pesquisa');
-    const categoriaSelect = document.getElementById('categoria');
+  function atualizarContador() {
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    contador.textContent = carrinho.length;
+  }
 
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    let produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
+  function carregarProdutos() {
+    const produtos = JSON.parse(localStorage.getItem("produtosPassenger")) || [];
+    return produtos;
+  }
 
-    function atualizarContador() {
-      contador.textContent = carrinho.length;
-    }
-
-    function renderizarCategorias() {
-      const categorias = [...new Set(produtos.map(p => p.categoria))];
-      categorias.forEach(cat => {
-        const opt = document.createElement('option');
-        opt.value = cat;
-        opt.textContent = cat;
-        categoriaSelect.appendChild(opt);
-      });
-    }
-
-    function renderizarProdutos(filtrados) {
-      lista.innerHTML = '';
-      filtrados.forEach((produto, index) => {
-        const card = document.createElement('div');
-        card.className = 'produto-card';
-        card.innerHTML = `
-          <img src="${produto.imagem}" alt="${produto.nome}" />
-          <h3>${produto.nome}</h3>
-          <p>AOA ${produto.preco}</p>
-          <button class="ver-mais">Ver mais</button>
-          <div class="detalhes">
-            <p><strong>Descrição:</strong> ${produto.descricao}</p>
-            <p><strong>Quantidade disponível:</strong> ${produto.quantidade}</p>
-            <div class="quantidade">
-              <button onclick="alterarQtd(this, -1)">-</button>
-              <span>1</span>
-              <button onclick="alterarQtd(this, 1)">+</button>
-            </div>
-            <div class="acoes">
-              <button onclick="adicionarCarrinho(${index}, this)">Adicionar ao carrinho</button>
-              <button onclick="comprarAgora(${index})">Comprar agora</button>
-            </div>
+  function renderizarProdutos(produtos) {
+    lista.innerHTML = '';
+    produtos.forEach((produto, index) => {
+      const card = document.createElement('div');
+      card.className = 'produto-card';
+      card.innerHTML = `
+        <img src="${produto.imagem}" alt="${produto.nome}" />
+        <h3>${produto.nome}</h3>
+        <p>${produto.preco}</p>
+        <button onclick="verMais(${index})">Ver mais</button>
+        <div id="mais-${index}" style="display:none; margin-top: 10px;">
+          <p><strong>Descrição:</strong> ${produto.descricao}</p>
+          <p><strong>Disponível:</strong> ${produto.quantidade}</p>
+          <div style="margin: 10px 0;">
+            <button onclick="alterarQuantidade(${index}, -1)">-</button>
+            <span id="qtd-${index}">1</span>
+            <button onclick="alterarQuantidade(${index}, 1)">+</button>
           </div>
-        `;
-        card.querySelector('.ver-mais').addEventListener('click', () => {
-          const detalhes = card.querySelector('.detalhes');
-          detalhes.style.display = detalhes.style.display === 'block' ? 'none' : 'block';
-        });
-        lista.appendChild(card);
-      });
-    }
-
-    function alterarQtd(btn, valor) {
-      const span = btn.parentElement.querySelector('span');
-      let atual = parseInt(span.textContent);
-      atual = Math.max(1, atual + valor);
-      span.textContent = atual;
-    }
-
-    function adicionarCarrinho(index, btn) {
-      const qtd = parseInt(btn.parentElement.previousElementSibling.querySelector('span').textContent);
-      const produto = { ...produtos[index], quantidadeSelecionada: qtd };
-      carrinho.push(produto);
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      atualizarContador();
-      alert('Produto adicionado ao carrinho.');
-    }
-
-    function comprarAgora(index) {
-      adicionarCarrinho(index, document.querySelectorAll('.acoes')[index].children[0]);
-      window.location.href = 'carrinho.html';
-    }
-
-    function filtrarProdutos() {
-      const termo = pesquisa.value.toLowerCase();
-      const cat = categoriaSelect.value;
-      const filtrados = produtos.filter(p => {
-        const nomeCombina = p.nome.toLowerCase().includes(termo);
-        const categoriaCombina = (cat === 'todas') || (p.categoria === cat);
-        return nomeCombina && categoriaCombina;
-      });
-      renderizarProdutos(filtrados);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      atualizarContador();
-      renderizarCategorias();
-      renderizarProdutos(produtos);
-      pesquisa.addEventListener('input', filtrarProdutos);
-      categoriaSelect.addEventListener('change', filtrarProdutos);
+          <button onclick="adicionarCarrinho(${index})">Adicionar ao Carrinho</button>
+          <button onclick="comprarAgora(${index})">Comprar Agora</button>
+        </div>
+      `;
+      lista.appendChild(card);
     });
-  </script>
+  }
+
+  function verMais(index) {
+    const div = document.getElementById(`mais-${index}`);
+    div.style.display = div.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function alterarQuantidade(index, delta) {
+    const span = document.getElementById(`qtd-${index}`);
+    let atual = parseInt(span.textContent);
+    atual = Math.max(1, atual + delta);
+    span.textContent = atual;
+  }
+
+  function adicionarCarrinho(index) {
+    const produtos = carregarProdutos();
+    const produto = produtos[index];
+    const quantidade = parseInt(document.getElementById(`qtd-${index}`).textContent);
+    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+    carrinho.push({ ...produto, quantidade });
+    localStorage.setItem('carrinho', JSON.stringify(carrinho));
+    atualizarContador();
+    alert("Produto adicionado ao carrinho!");
+  }
+
+  function comprarAgora(index) {
+    adicionarCarrinho(index);
+    window.location.href = "carrinho.html";
+  }
+
+  function filtrarProdutos() {
+    const termo = pesquisa.value.toLowerCase();
+    const cat = categoria.value;
+    const produtos = carregarProdutos();
+    const filtrados = produtos.filter(p => {
+      const nomeCombina = p.nome.toLowerCase().includes(termo);
+      const categoriaCombina = (cat === 'todas') || (p.categoria === cat);
+      return nomeCombina && categoriaCombina;
+    });
+    renderizarProdutos(filtrados);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    atualizarContador();
+    renderizarProdutos(carregarProdutos());
+    pesquisa.addEventListener('input', filtrarProdutos);
+    categoria.addEventListener('change', filtrarProdutos);
+  });
+</script>
 </body>
 </html>
