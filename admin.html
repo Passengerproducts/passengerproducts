@@ -2,216 +2,159 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Painel de Administração - PASSENGER PRODUCTS - PP</title>
+  <title>Administração - PASSENGER PRODUCTS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      padding: 20px;
       background-color: #f4f4f4;
-      padding: 30px;
     }
-    h1 {
-      text-align: center;
-      color: #27ae60;
-    }
-    form {
+    .login, .admin-panel {
+      max-width: 500px;
+      margin: auto;
       background: white;
       padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 0 auto;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-    label {
-      display: block;
-      margin: 10px 0 5px;
-    }
-    input, select {
+    input, button, select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
+      margin: 10px 0;
+    }
+    .produto {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .produto img {
+      height: 50px;
       border-radius: 5px;
-      border: 1px solid #ccc;
     }
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #27ae60;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #219150;
-    }
-    .sucesso {
-      color: green;
-      text-align: center;
-      margin-top: 15px;
-    }
-    .erro {
-      color: red;
-      text-align: center;
-      margin-top: 15px;
-    }
-    .auth-container {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 30px;
-      background: white;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    .auth-container h2 {
-      text-align: center;
-    }
-    .auth-container input {
-      margin-bottom: 15px;
+    .opcoes-imagem {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div id="auth-container" class="auth-container">
-    <h2>Login - Administrador</h2>
-    <form id="auth-form">
-      <label for="usuario">Nome de Usuário:</label>
-      <input type="text" id="usuario" required>
+<div class="login" id="loginBox">
+  <h2>Login de Administrador</h2>
+  <input type="text" id="user" placeholder="Nome de utilizador" />
+  <input type="password" id="pass" placeholder="Senha" />
+  <button onclick="login()">Entrar</button>
+  <p id="loginErro" style="color:red;"></p>
+</div>
 
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" required>
+<div class="admin-panel" id="adminPanel" style="display:none;">
+  <h2>Painel de Administração</h2>
+  <input type="text" id="nome" placeholder="Nome do Produto">
+  <input type="text" id="preco" placeholder="Preço">
+  <select id="categoria">
+    <option value="acessorios">Acessórios</option>
+    <option value="waves">Waves</option>
+    <option value="relógios">Relógios</option>
+    <option value="cuidados">Cuidados</option>
+  </select>
 
-      <button type="submit">Entrar</button>
-    </form>
-    <p id="msg-erro" class="erro"></p>
+  <div class="opcoes-imagem">
+    <input type="file" id="imagemFile" accept="image/*">
+    <input type="text" id="imagemURL" placeholder="Ou URL da imagem">
   </div>
 
-  <div id="admin-container" style="display: none;">
-    <h1>Adicionar Produto</h1>
+  <button onclick="adicionarProduto()">Adicionar Produto</button>
+  <hr>
+  <h3>Produtos Existentes</h3>
+  <div id="produtosLista"></div>
+</div>
 
-    <form id="form-produto">
-      <label for="nome">Nome do Produto:</label>
-      <input type="text" id="nome" required>
+<script>
+  const usuarios = {
+    'Otniel5940': '5940',
+    'DavidSebastiao': 'passenger.products.2025'
+  };
 
-      <label for="preco">Preço (ex: 2500 Kz):</label>
-      <input type="text" id="preco" required>
+  function login() {
+    const user = document.getElementById('user').value.trim();
+    const pass = document.getElementById('pass').value.trim();
+    const erro = document.getElementById('loginErro');
 
-      <label for="imagem">Imagem do Produto:</label>
-      <select id="imagem-tipo" onchange="toggleImagemInput()">
-        <option value="url">URL</option>
-        <option value="local">Local</option>
-      </select>
+    if (usuarios[user] && usuarios[user] === pass) {
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      carregarProdutos();
+    } else {
+      erro.textContent = "Credenciais inválidas.";
+    }
+  }
 
-      <input type="text" id="imagem-url" placeholder="URL da Imagem" style="display: none;" required>
-      <input type="file" id="imagem-local" style="display: none;" accept="image/*">
+  function adicionarProduto() {
+    const nome = document.getElementById('nome').value;
+    const preco = document.getElementById('preco').value;
+    const categoria = document.getElementById('categoria').value;
+    const file = document.getElementById('imagemFile').files[0];
+    const imagemURL = document.getElementById('imagemURL').value;
 
-      <label for="categoria">Categoria:</label>
-      <select id="categoria" required>
-        <option value="acessorios">Acessórios</option>
-        <option value="waves">Waves</option>
-        <option value="relógios">Relógios</option>
-        <option value="cuidados">Cuidados</option>
-      </select>
-
-      <button type="submit">Salvar Produto</button>
-      <p class="sucesso" id="msg-sucesso"></p>
-    </form>
-
-    <h2 style="text-align:center;">Produtos Cadastrados</h2>
-    <button onclick="verProdutos()">Ver Produtos</button>
-    <div id="produtos-container" style="margin-top: 20px;"></div>
-  </div>
-
-  <script>
-    const usuarios = [
-      { usuario: 'Otniel5940', senha: '5940' },
-      { usuario: 'DavidSebastiao', senha: 'passenger.products.2025' }
-    ];
-
-    const authContainer = document.getElementById('auth-container');
-    const adminContainer = document.getElementById('admin-container');
-    const formProduto = document.getElementById('form-produto');
-    const msgErro = document.getElementById('msg-erro');
-    const msgSucesso = document.getElementById('msg-sucesso');
-
-    document.getElementById('auth-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const usuario = document.getElementById('usuario').value.trim();
-      const senha = document.getElementById('senha').value.trim();
-      const usuarioEncontrado = usuarios.find(u => u.usuario === usuario && u.senha === senha);
-
-      if (usuarioEncontrado) {
-        authContainer.style.display = 'none';
-        adminContainer.style.display = 'block';
-      } else {
-        msgErro.textContent = 'Credenciais inválidas. Tente novamente.';
-      }
-    });
-
-    formProduto.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const nome = document.getElementById('nome').value.trim();
-      const preco = document.getElementById('preco').value.trim();
-      const categoria = document.getElementById('categoria').value;
-      const imagemTipo = document.getElementById('imagem-tipo').value;
-      let imagem;
-
-      if (imagemTipo === 'url') {
-        imagem = document.getElementById('imagem-url').value.trim();
-      } else {
-        const imagemLocal = document.getElementById('imagem-local').files[0];
-        if (imagemLocal) {
-          imagem = URL.createObjectURL(imagemLocal);
-        }
-      }
-
-      const novoProduto = {
-        id: Date.now(),
-        nome,
-        preco,
-        imagem,
-        categoria
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        salvarProduto(nome, preco, categoria, e.target.result);
       };
+      reader.readAsDataURL(file);
+    } else if (imagemURL.trim() !== '') {
+      salvarProduto(nome, preco, categoria, imagemURL);
+    } else {
+      alert("Por favor selecione uma imagem ou insira a URL.");
+    }
+  }
 
-      const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-      produtos.push(novoProduto);
-      localStorage.setItem('produtos', JSON.stringify(produtos));
+  function salvarProduto(nome, preco, categoria, imagem) {
+    const produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
+    const id = Date.now();
+    produtos.push({ id, nome, preco, categoria, imagem });
+    localStorage.setItem('produtosPP', JSON.stringify(produtos));
+    carregarProdutos();
+    limparCampos();
+  }
 
-      msgSucesso.textContent = 'Produto salvo com sucesso!';
-      formProduto.reset();
+  function limparCampos() {
+    document.getElementById('nome').value = '';
+    document.getElementById('preco').value = '';
+    document.getElementById('imagemFile').value = '';
+    document.getElementById('imagemURL').value = '';
+  }
+
+  function carregarProdutos() {
+    const produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
+    const lista = document.getElementById('produtosLista');
+    lista.innerHTML = '';
+    produtos.forEach(prod => {
+      const div = document.createElement('div');
+      div.className = 'produto';
+      div.innerHTML = `
+        <div>
+          <img src="${prod.imagem}" alt="imagem">
+          <strong>${prod.nome}</strong><br>
+          ${prod.preco} - ${prod.categoria}
+        </div>
+        <button onclick="removerProduto(${prod.id})">Remover</button>
+      `;
+      lista.appendChild(div);
     });
+  }
 
-    function toggleImagemInput() {
-      const imagemTipo = document.getElementById('imagem-tipo').value;
-      if (imagemTipo === 'url') {
-        document.getElementById('imagem-url').style.display = 'block';
-        document.getElementById('imagem-local').style.display = 'none';
-      } else {
-        document.getElementById('imagem-url').style.display = 'none';
-        document.getElementById('imagem-local').style.display = 'block';
-      }
-    }
-
-    function verProdutos() {
-      const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-      const container = document.getElementById('produtos-container');
-      container.innerHTML = '';
-      produtos.forEach(produto => {
-        const produtoDiv = document.createElement('div');
-        produtoDiv.innerHTML = `
-          <h3>${produto.nome}</h3>
-          <p>Preço: ${produto.preco}</p>
-          <p>Categoria: ${produto.categoria}</p>
-          <img src="${produto.imagem}" alt="${produto.nome}" style="max-width: 100px;">
-        `;
-        container.appendChild(produtoDiv);
-      });
-    }
-  </script>
+  function removerProduto(id) {
+    let produtos = JSON.parse(localStorage.getItem('produtosPP')) || [];
+    produtos = produtos.filter(p => p.id !== id);
+    localStorage.setItem('produtosPP', JSON.stringify(produtos));
+    carregarProdutos();
+  }
+</script>
 
 </body>
 </html>
