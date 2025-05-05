@@ -1,94 +1,198 @@
-<!DOCTYPE html>
-<html lang="pt">
+<!DOCTYPE html><html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produtos - PASSENGER PRODUCTS - PP</title>
+  <link rel="stylesheet" href="css/estilo.css">
   <style>
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
       background-color: #f4f4f4;
-      padding: 30px;
     }
-    h1 {
-      text-align: center;
-      color: #27ae60;
-    }
-    .produto-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .produto {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    header {
+      background-color: #27ae60;
+      color: white;
       padding: 20px;
       text-align: center;
     }
-    .produto img {
-      width: 100%;
-      max-height: 200px;
-      object-fit: contain;
-      border-radius: 10px;
+    .navbar {
+      display: flex;
+      justify-content: center;
+      background-color: #27ae60;
+      padding: 10px 0;
     }
-    .produto h3 {
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    .carrinho {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      background: white;
+      padding: 10px;
+      border-radius: 50px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .carrinho span {
+      font-size: 16px;
+      color: #e74c3c;
+      margin-left: 5px;
+    }
+    .filtros {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 20px;
+    }
+    .filtros input, .filtros select {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .produtos-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+    .produto-card {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .produto-card img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .produto-card h3 {
+      font-size: 18px;
       margin: 10px 0;
-      color: #333;
     }
-    .produto p {
-      color: #555;
-    }
-    .produto .preco {
-      font-size: 1.2em;
+    .produto-card p {
+      font-size: 16px;
       color: #27ae60;
-      margin: 10px 0;
     }
-    .produto .categoria {
-      font-size: 0.9em;
-      color: #888;
+    .produto-card a {
+      display: inline-block;
+      margin-top: 10px;
+      background: #27ae60;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    footer a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
     }
   </style>
 </head>
 <body>
-
-  <h1>Produtos - PASSENGER PRODUCTS - PP</h1>
-
-  <div class="produto-container" id="produtos-container">
-    <!-- Produtos serão carregados aqui -->
+  <header>
+    <h1>PASSENGER PRODUCTS - PP</h1>
+    <p>Beleza, Cuidado e Estilo ao seu alcance</p>
+  </header>
+  <div class="navbar">
+    <a href="index.html">Início</a>
+    <a href="produtos.html">Produtos</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="contato.html">Contato</a>
+  </div>
+  <div class="carrinho" onclick="window.location.href='carrinho.html'">
+    🛒🛍️<span id="contador-carrinho">0</span>
   </div>
 
+  <section class="filtros">
+    <input type="text" id="pesquisa" placeholder="Pesquisar produto...">
+    <select id="categoria">
+      <option value="todas">Todas as Categorias</option>
+      <option value="acessorios">Acessórios</option>
+      <option value="waves">Waves</option>
+      <option value="relógios">Relógios</option>
+      <option value="cuidados">Cuidados</option>
+    </select>
+  </section>
+
+  <section>
+    <h2 style="text-align:center; margin-top: 10px;">Todos os Produtos</h2>
+    <div class="produtos-container" id="lista-produtos"></div>
+  </section>
+
+  <footer>
+    <p>© 2025 PASSENGER PRODUCTS - PP | Todos os direitos reservados</p>
+    <p>Contato: 954 546 731 | Email: passenger.products.apoio@gmail.com</p>
+    <p>
+      <a href="https://www.instagram.com" target="_blank">Instagram</a> |
+      <a href="https://www.facebook.com" target="_blank">Facebook</a> |
+      <a href="https://www.whatsapp.com" target="_blank">WhatsApp</a>
+    </p>
+  </footer>
+
+  <script src="produtos_data.js"></script>
   <script>
-    // Carregar produtos do localStorage
-    function carregarProdutos() {
-      const produtos = JSON.parse(localStorage.getItem('produtos')) || [];
-      const container = document.getElementById('produtos-container');
-      container.innerHTML = '';
+    const lista = document.getElementById('lista-produtos');
+    const contador = document.getElementById('contador-carrinho');
+    const pesquisa = document.getElementById('pesquisa');
+    const categoria = document.getElementById('categoria');
 
-      if (produtos.length === 0) {
-        container.innerHTML = '<p style="text-align: center; font-size: 1.5em; color: #555;">Nenhum produto disponível.</p>';
-      } else {
-        produtos.forEach(produto => {
-          const produtoDiv = document.createElement('div');
-          produtoDiv.classList.add('produto');
-
-          produtoDiv.innerHTML = `
-            <img src="${produto.imagem}" alt="${produto.nome}">
-            <h3>${produto.nome}</h3>
-            <p class="preco">${produto.preco}</p>
-            <p class="categoria">Categoria: ${produto.categoria}</p>
-          `;
-
-          container.appendChild(produtoDiv);
-        });
-      }
+    function atualizarContador() {
+      const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+      contador.textContent = carrinho.length;
     }
 
-    // Chamar a função de carregar os produtos ao carregar a página
-    window.onload = carregarProdutos;
-  </script>
+    function renderizarProdutos(filtrados) {
+      lista.innerHTML = '';
+      filtrados.forEach(produto => {
+        const card = document.createElement('div');
+        card.className = 'produto-card';
+        card.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}" />
+          <h3>${produto.nome}</h3>
+          <p>${produto.preco}</p>
+          <a href="produto.html?id=${produto.id}">Ver Produto</a>
+        `;
+        lista.appendChild(card);
+      });
+    }
 
+    function filtrarProdutos() {
+      const termo = pesquisa.value.toLowerCase();
+      const cat = categoria.value;
+      const filtrados = produtos.filter(p => {
+        const nomeCombina = p.nome.toLowerCase().includes(termo);
+        const categoriaCombina = (cat === 'todas') || (p.categoria === cat);
+        return nomeCombina && categoriaCombina;
+      });
+      renderizarProdutos(filtrados);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      atualizarContador();
+      renderizarProdutos(produtos);
+      pesquisa.addEventListener('input', filtrarProdutos);
+      categoria.addEventListener('change', filtrarProdutos);
+    });
+  </script>
 </body>
 </html>
