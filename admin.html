@@ -14,12 +14,13 @@
       color: #27ae60;
     }
     .container {
-      max-width: 500px;
+      max-width: 600px;
       margin: auto;
       background: white;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
     }
     input, select, button {
       display: block;
@@ -37,10 +38,41 @@
     button:hover {
       background: #219150;
     }
+    .lista-produtos {
+      margin-top: 20px;
+    }
+    .produto-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+    .produto-item img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+    .produto-info {
+      flex-grow: 1;
+    }
+    .produto-info p {
+      margin: 2px 0;
+    }
+    .remover {
+      background: #e74c3c;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="login-container">
     <h2>Login do Administrador</h2>
     <input type="text" id="user" placeholder="Usuário">
     <input type="password" id="pass" placeholder="Senha">
@@ -59,6 +91,11 @@
       <option value="cuidados">Cuidados</option>
     </select>
     <button onclick="adicionarProduto()">Salvar Produto</button>
+
+    <div class="lista-produtos" id="lista-produtos">
+      <h3>Produtos Cadastrados</h3>
+      <!-- Lista renderizada aqui -->
+    </div>
   </div>
 
   <script>
@@ -66,8 +103,9 @@
       const u = document.getElementById("user").value;
       const p = document.getElementById("pass").value;
       if (u === "admin" && p === "1234") {
-        document.querySelectorAll(".container")[0].style.display = "none";
+        document.getElementById("login-container").style.display = "none";
         document.getElementById("painel").style.display = "block";
+        mostrarProdutos();
       } else {
         alert("Credenciais incorretas!");
       }
@@ -96,9 +134,42 @@
       produtos.push(novoProduto);
       localStorage.setItem("produtos", JSON.stringify(produtos));
       alert("Produto adicionado com sucesso!");
+      limparCampos();
+      mostrarProdutos();
+    }
+
+    function limparCampos() {
       document.getElementById("nome").value = "";
       document.getElementById("preco").value = "";
       document.getElementById("imagem").value = "";
+    }
+
+    function mostrarProdutos() {
+      const produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+      const lista = document.getElementById("lista-produtos");
+      lista.innerHTML = '<h3>Produtos Cadastrados</h3>';
+
+      produtos.forEach((p, i) => {
+        const item = document.createElement("div");
+        item.className = "produto-item";
+        item.innerHTML = `
+          <img src="${p.imagem}" alt="${p.nome}">
+          <div class="produto-info">
+            <p><strong>${p.nome}</strong></p>
+            <p>${p.preco}</p>
+            <p><em>${p.categoria}</em></p>
+          </div>
+          <button class="remover" onclick="removerProduto(${p.id})">Remover</button>
+        `;
+        lista.appendChild(item);
+      });
+    }
+
+    function removerProduto(id) {
+      let produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+      produtos = produtos.filter(p => p.id !== id);
+      localStorage.setItem("produtos", JSON.stringify(produtos));
+      mostrarProdutos();
     }
   </script>
 </body>
